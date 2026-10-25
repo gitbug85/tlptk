@@ -1,5 +1,5 @@
 # toki lukin pi telo kule
-![Alt text](./sample.svg)
+![sample](./sample.svg)
 
 mi jan sin a
 
@@ -8,7 +8,7 @@ nasin lawa en nasin sitelen pi ilo ni li lon anpa.
 
 ## o jo
 
-o wile jo e ilo Python https://www.python.org/downloads/\
+o wile jo e ilo Python https://www.python.org/downloads/ \
 o luka lili te ```< > Code ⌄``` to laso\
 o luka lili te ```Download ZIP``` to\
 o pali e kulupu tan ZIP
@@ -33,5 +33,7 @@ sitelen weka li te ```_``` to
 ```tlptk
 ilo ni li toki lukin pi telo kule
 mi jan sin a
-mi wile kama suli e jan pi toki pona _ a
+mi wile e ni _ _ _ jan pi toki pona li kama mute a
 ```
+
+![sin](./sin.svg)
