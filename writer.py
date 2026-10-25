@@ -122,6 +122,7 @@ def interpret():
             "width": str(args.p),
             "height": str(args.s),
             "viewBox": f"0 0 {args.p} {args.s}",
+            "style": "background-color: white;",
         },
     )
 

@@ -1,9 +1,8 @@
 # toki lukin pi telo kule
-![sample](./sample.svg)
 
 mi jan sin a
 
-ilo ni li pali e PDF anu lipu suli.\
+ilo ni li pali e SVG.\
 nasin lawa en nasin sitelen pi ilo ni li lon anpa.
 
 ## o jo
@@ -13,7 +12,7 @@ o luka lili te ```< > Code ⌄``` to laso\
 o luka lili te ```Download ZIP``` to\
 o pali e kulupu tan ZIP
 
-## o sitelen
+## o kepeken
 
 Linux
 ```bash
@@ -32,8 +31,10 @@ sitelen weka li te ```_``` to
 
 ```tlptk
 ilo ni li toki lukin pi telo kule
-mi jan sin a
-mi wile e ni _ _ _ jan pi toki pona li kama mute a
+mi jan sin _ sitelen pona li pona tawa mi a
+mi wile e ni la jan pi toki pona li kama mute a
 ```
+
+pana weka:
 
 ![sin](./sin.svg)
