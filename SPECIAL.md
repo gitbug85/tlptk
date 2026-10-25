@@ -1,0 +1,5 @@
+ - pini suli \pisu
+ - ni suli \nisu
+ - sama suli uses \sasu
+ - te uses \te
+ - to uses \to
