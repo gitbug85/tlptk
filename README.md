@@ -1,8 +1,6 @@
 # toki lukin pi telo kule
 
-mi jan sin a
-
-ilo ni li pali e SVG.\
+ilo ni li pali e SVG pi sitelen pona.\
 nasin lawa en nasin sitelen pi ilo ni li lon anpa.
 
 ## o jo
@@ -16,18 +14,18 @@ o pali e kulupu tan ZIP
 
 Linux
 ```bash
-python3 writer.py -w 2 -n './test/sin.tlptk' -p 10 -s 4
+python3 writer.py -w 200 -n './test/sin.tlptk' -p 2800 -s 600
 ```
 
-Windows
+Windows (mi ala lukin)
 ```bash
-python writer.py -w 2 -n './test/sin.tlptk' -p 10 -s 4
+python writer.py -w 200 -n './test/sin.tlptk' -p 2800 -s 600
 ```
 
 ## nasin sitelen
 
 ilo ni pi tenpo ni li lili
-sitelen weka li te ```_``` to
+sitelen wan pi sitelen weka li te ```_``` to
 
 ```tlptk
 ilo ni li toki lukin pi telo kule
