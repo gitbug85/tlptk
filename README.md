@@ -17,7 +17,7 @@ Linux
 python3 writer.py -w 200 -n './test/sin.tlptk' -p 2800 -s 600
 ```
 
-Windows (mi ala lukin)
+Windows (mi ni li lukin ala)
 ```bash
 python writer.py -w 200 -n './test/sin.tlptk' -p 2800 -s 600
 ```
