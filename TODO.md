@@ -5,11 +5,16 @@
 | sama suli | \sasu |
 
 Glyphs to Add:
- - Te
- - To
+ - X te
+ - X to
+ - X \pisu
+ - X \nisu
+ - X \sasu
 
 Generally Add:
- - Nimi pi lipu suli pi toki pona
+ - X Nimi pi lipu suli pi toki pona
+ - Less space between glyphs
+ - Cartouche (poki nimi)
 
 Do NOT Add:
  - ANY u word (pu, ku, etc...)
