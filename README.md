@@ -12,17 +12,14 @@ o pali e kulupu tan ZIP
 
 ## o kepeken
 
-Linux
+linux li jo e ilo python3. windows li jo e ilo python.\
+mi kama kepeken ilo python3 lon lipu sona ni.
+
+o sina te ```python3 writer.py --help``` to
+
 ```bash
 python3 writer.py -w 200 -n './test/sin.tlptk' -p 1400 -s 600
 ```
-
-Windows (mi ni li lukin ala)
-```bash
-python writer.py -w 200 -n './test/sin.tlptk' -p 1400 -s 600
-```
-
-o sina te ```writer.py --help``` to
 
 ## nasin sitelen
 
@@ -46,7 +43,6 @@ sina kepeken e sitelen wan pi anpusan. ni te ```&``` to
 nimi mi li jan & soto_pi_nimi_poki pi & meso_pi_nimi_poki pipi & meso_pi_nimi_poki luka & teje_pi_nimi_poki
 ```
 
-Linux
 ```bash
 python3 writer.py -w 200 -n './test/sin.tlptk' -p 1000 -s 200
 ```
