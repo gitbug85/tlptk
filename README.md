@@ -14,12 +14,12 @@ o pali e kulupu tan ZIP
 
 Linux
 ```bash
-python3 writer.py -w 200 -n './test/sin.tlptk' -p 2800 -s 600
+python3 writer.py -w 200 -n './test/sin.tlptk' -p 1400 -s 600
 ```
 
 Windows (mi ni li lukin ala)
 ```bash
-python writer.py -w 200 -n './test/sin.tlptk' -p 2800 -s 600
+python writer.py -w 200 -n './test/sin.tlptk' -p 1400 -s 600
 ```
 
 o sina te ```writer.py --help``` to
