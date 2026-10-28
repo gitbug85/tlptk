@@ -17,7 +17,7 @@ SVG_NS = "http://www.w3.org/2000/svg"
 ET.register_namespace("", SVG_NS)
 
 GLYPH_DIR = Path("./sitelen_wan")
-GLYPH_SPACING = -1
+GLYPH_SPACING = -0.5*args.w
 
 def tag(name):
     return f"{{{SVG_NS}}}{name}"
@@ -83,6 +83,11 @@ def draw(content: str, svg: ET.Element):
     fragments = [x for x in fragments if x is not None]
     print(fragments)
 
+    overlay_next = False
+
+    prev_x = None
+    prev_y = None
+
     for frag in fragments:
         if frag == "":
             continue
@@ -90,18 +95,35 @@ def draw(content: str, svg: ET.Element):
         if frag == "\n":
             x = 0
             y += w
+            prev_x = None
+            prev_y = None
             continue
 
         if frag in ("\r", "\t", "\v", "\f"):
-            # Treat tabs as four spaces; ignore other whitespace.
             if frag == "\t":
                 x += 4 * w
+            continue
+
+        if frag == "&":
+            overlay_next = True
+            continue
+
+        # If the previous fragment was &, overlay this glyph
+        # on the previous glyph instead of advancing.
+        if prev_x is not None and prev_y is not None and overlay_next:
+            glyph_path = GLYPH_DIR / f"{frag}.svg"
+            glyph = load_glyph(glyph_path, prev_x, prev_y, w)
+            svg.append(glyph)
+            overlay_next = False
             continue
 
         glyph_path = GLYPH_DIR / f"{frag}.svg"
         glyph = load_glyph(glyph_path, x, y, w)
         svg.append(glyph)
+
+        prev_x, prev_y = x, y
         x += w + GLYPH_SPACING
+        overlay_next = False
 
 
 def interpret():
