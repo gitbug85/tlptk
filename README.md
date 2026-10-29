@@ -29,7 +29,7 @@ sitelen wan pi sitelen weka li te ```_``` to
 
 ```tlptk
 ilo ni li toki lukin pi telo kule
-mi jan sin _ sitelen pona li pona tawa mi a
+mi jan sin_sitelen pona li pona tawa mi a
 mi wile e ni la jan pi toki pona li kama mute a
 ```
 
@@ -41,7 +41,7 @@ nimi poki li sitelen wan pi kipisi 3.\
 sina kepeken e sitelen wan pi anpusan. ni te ```&``` to
 
 ```tlptk
-nimi mi li jan & soto_pi_nimi_poki pi & meso_pi_nimi_poki pipi & meso_pi_nimi_poki luka & teje_pi_nimi_poki
+nimi mi li jan&soto+pi+nimi+poki pi&meso+pi+nimi+poki pipi&meso+pi+nimi+poki luka&teje+pi+nimi+poki
 ```
 
 ```bash

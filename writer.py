@@ -150,7 +150,7 @@ def interpret():
     )
 
     try:
-        lex(content, "2026")
+        lex(content, "*& \n\t_")
         draw(content, svg)
     except (OSError, ET.ParseError, ValueError) as exc:
         parser.error(str(exc))
