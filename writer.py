@@ -78,11 +78,7 @@ def draw(content: str, svg: ET.Element):
     y = 0
     w = args.w
 
-    # Split into individual whitespace characters so that
-    # repeated spaces and consecutive newlines are handled.
-    fragments = re.split(r"(\n)|\s+", content)
-    fragments = [x for x in fragments if x is not None]
-    print(fragments)
+    fragments = lex(content, "*& \n\t_")
 
     overlay_next = False
 
@@ -150,7 +146,6 @@ def interpret():
     )
 
     try:
-        lex(content, "*& \n\t_")
         draw(content, svg)
     except (OSError, ET.ParseError, ValueError) as exc:
         parser.error(str(exc))
