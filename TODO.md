@@ -10,6 +10,8 @@ Glyphs to Add:
  - X pisu
  - X nisu
  - X sasu
+ - mute |||
+ - sewi الله
 
 Generally Add:
  - X Nimi pi lipu suli pi toki pona
