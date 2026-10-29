@@ -5,6 +5,7 @@ import copy
 import argparse
 from pathlib import Path
 import xml.etree.ElementTree as ET
+from lexer import lex
 
 parser = argparse.ArgumentParser(description="Tool to write TLPTK SVGs")
 parser.add_argument("-w", type=int, required=True, help="suli pi sitelen wan (glyph cell size)")
@@ -149,6 +150,7 @@ def interpret():
     )
 
     try:
+        lex(content, "2026")
         draw(content, svg)
     except (OSError, ET.ParseError, ValueError) as exc:
         parser.error(str(exc))

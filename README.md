@@ -13,6 +13,7 @@ o pali e kulupu tan ZIP
 ## o kepeken
 
 linux li jo e ilo python3. windows li jo e ilo python.\
+mi lij o e ilo python pi 3.12.3.
 mi kama kepeken ilo python3 lon lipu sona ni.
 
 o sina te ```python3 writer.py --help``` to
