@@ -78,7 +78,7 @@ def draw(content: str, svg: ET.Element):
     y = 0
     w = args.w
 
-    fragments = lex(content, "*& \n\t_")
+    fragments = lex(content, "*& \n\t_[]")
 
     overlay_next = False
 

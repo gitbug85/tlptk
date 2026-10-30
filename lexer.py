@@ -14,15 +14,23 @@ def lex(content: str, characters: str) -> list[str]:
                 kulupu_nimi.append(char)
 
     # Attach * as a postfix
-    new_kulupu_nimi = []
+    asterisk_kulupu_nimi = []
     last_nimi = ""
     for nimi in kulupu_nimi:
         if nimi == "*":
             last_nimi += nimi
-            new_kulupu_nimi.pop()
-            new_kulupu_nimi.append(last_nimi)
+            asterisk_kulupu_nimi.pop()
+            asterisk_kulupu_nimi.append(last_nimi)
         else:
             last_nimi = nimi
-            new_kulupu_nimi.append(nimi)
+            asterisk_kulupu_nimi.append(nimi)
 
-    return new_kulupu_nimi
+    # poki nimi
+
+    final_kulupu_nimi = []
+    in_poki_nimi = False
+
+    for nimi in asterisk_kulupu_nimi:
+        print(nimi)
+
+    return asterisk_kulupu_nimi
