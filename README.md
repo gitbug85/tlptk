@@ -37,15 +37,14 @@ pana weka:
 
 ![sin](./sin.svg)
 
-nimi poki li sitelen wan pi kipisi 3.\
-sina kepeken e sitelen wan pi anpusan. ni te ```&``` to
+nimi poki li kepeken e te ```[]``` to
 
 ```tlptk
-nimi mi li jan&soto+pi+nimi+poki pi&meso+pi+nimi+poki pipi&meso+pi+nimi+poki luka&teje+pi+nimi+poki
+nimi mi li [jan pi pipi luka]
 ```
 
 ```bash
-python3 writer.py -w 200 -n './test/sin.tlptk' -p 1000 -s 200
+python3 writer.py -w 200 -n './test/nimi.tlptk' -p 800 -s 200
 ```
 
 ![nimi](./nimi.svg)

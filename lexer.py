@@ -29,8 +29,28 @@ def lex(content: str, characters: str) -> list[str]:
 
     final_kulupu_nimi = []
     in_poki_nimi = False
+    start = False
 
     for nimi in asterisk_kulupu_nimi:
-        print(nimi)
+        if nimi == "[":
+            start = True
+        elif nimi == "]":
+            in_poki_nimi = False
+            final_kulupu_nimi = final_kulupu_nimi[:-2]
+            final_kulupu_nimi.append("&")
+            final_kulupu_nimi.append("teje+pi+nimi+poki")
+        else:
+            if in_poki_nimi:
+                final_kulupu_nimi.append(nimi)
+                final_kulupu_nimi.append("&")
+                final_kulupu_nimi.append("meso+pi+nimi+poki")
+            elif start:
+                final_kulupu_nimi.append(nimi)
+                final_kulupu_nimi.append("&")
+                final_kulupu_nimi.append("soto+pi+nimi+poki")
+                start = False
+                in_poki_nimi = True
+            else:
+                final_kulupu_nimi.append(nimi)
 
-    return asterisk_kulupu_nimi
+    return final_kulupu_nimi
