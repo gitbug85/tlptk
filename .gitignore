@@ -1,3 +1,6 @@
 __pycache__
 /test/*.svg
 /sitelen_wan/sample.svg
+/pdf_gen/target
+/pdf_gen/Cargo.lock
+/target

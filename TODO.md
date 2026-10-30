@@ -17,7 +17,7 @@ Generally Add:
  - X Nimi pi lipu suli pi toki pona
  - X Less space between glyphs
  - X Cartouche (poki nimi)
- - [] denote cartouche
+ - X [] denote cartouche
 
 Do NOT Add:
  - ANY of the u words (pu, ku, etc...)
