@@ -19,7 +19,7 @@ Generally Add:
  - X Cartouche (poki nimi)
  - X [] denote cartouche
  - X Solve error why it's not writing last glyph
- - Solve problem of not updating the svg in Rust (theory: the -o argument can't be updated but Rust keeps the same Python instance up?)
+ - Solve problem of not updating the svg in Rust (Python isn't the problem bc it can successfully write the SVG
 
 Do NOT Add:
  - ANY of the u words (pu, ku, etc...)

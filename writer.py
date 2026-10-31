@@ -133,6 +133,7 @@ def interpret():
 
     try:
         if args.o:
+            print(args.o)
             content = args.o
         else:
             content = Path(args.n).read_text(encoding="utf-8")
@@ -151,7 +152,6 @@ def interpret():
     )
 
     try:
-        print(content)
         draw(content, svg)
     except (OSError, ET.ParseError, ValueError) as exc:
         parser.error(str(exc))
@@ -159,7 +159,7 @@ def interpret():
     if args.n:
         output_path = Path(args.n).parent / (Path(args.n).stem + ".svg")
     else:
-        output_path = Path("./test/example.svg")
+        output_path = Path("./test/output.svg")
 
     ET.ElementTree(svg).write(
         output_path,
