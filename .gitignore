@@ -1,6 +1,13 @@
 __pycache__
 /test/*.svg
 /sitelen_wan/sample.svg
-/ui/target
-/ui/Cargo.lock
+target
+Cargo.lock
 /target
+
+
+# Added by cargo
+#
+# already existing elements were commented out
+
+#/target
