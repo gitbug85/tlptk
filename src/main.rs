@@ -56,13 +56,42 @@ impl eframe::App for MyApp {
 
                         sys.getattr("path")?.call_method1("insert", (0, cwd))?;
 
-                        let module = PyModule::import(py, "example")?;
+                        // Set command-line arguments
+                        let args = vec![
+                            "writer.py".to_string(),
+                            "-w".to_string(),
+                            self.glyph_size.to_string(),
+                            "-n".to_string(),
+                            self.path.clone(),
+                            "-p".to_string(),
+                            self.svg_width.to_string(),
+                            "-s".to_string(),
+                            self.svg_height.to_string(),
+                        ];
 
-                        // Call test_function()
-                        let result = module.getattr("test_function")?.call0()?;
+                        let sys_argv = PyModule::import(py, "sys")?.getattr("argv")?;
 
-                        // Convert returned Python string to Rust String
-                        result.extract::<String>()
+                        let py_args = args
+                            .iter()
+                            .map(|arg| arg.to_string())
+                            .collect::<Vec<String>>();
+
+                        sys_argv.call_method1("clear", ())?;
+
+                        for arg in py_args {
+                            sys_argv.call_method1("append", (arg,))?;
+                        }
+
+                        // Import writer module
+                        let module = PyModule::import(py, "writer")?;
+
+                        // Call main() (argparse entry point)
+                        let result = module.getattr("main")?.call0()?;
+
+                        match result.extract::<String>() {
+                            Ok(value) => Ok(value),
+                            Err(_) => Ok("Python script executed successfully".to_string()),
+                        }
                     })();
 
                     match result {

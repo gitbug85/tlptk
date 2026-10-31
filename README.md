@@ -16,6 +16,8 @@ linux li jo e ilo python3. windows li jo e ilo python.\
 mi li jo e ilo python pi 3.12.3.
 mi kama kepeken ilo python3 lon lipu sona ni.
 
+<!--sudo apt install python3.12-dev for pyo3 to work correctly on Linux-->
+
 o sina te ```python3 writer.py --help``` to
 
 ```bash
