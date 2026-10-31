@@ -5,18 +5,18 @@ nasin lawa en nasin sitelen pi ilo ni li lon anpa.
 
 ## o jo
 
-o wile jo e ilo Python https://www.python.org/downloads/ \
+linux li jo e nimi python3. windows li jo e nimi python.\
+mi jo e ilo python pi 3.12.3.
+mi kama kepeken ilo python3 lon lipu sona ni.
+
+<!--sudo apt install python3.12-dev for pyo3 to work correctly on Linux (experimental features)-->
+
+o wile jo e ilo python https://www.python.org/downloads/ \
 o luka lili te ```< > Code ⌄``` to laso\
 o luka lili te ```Download ZIP``` to\
 o pali e kulupu tan ZIP
 
 ## o kepeken
-
-linux li jo e ilo python3. windows li jo e ilo python.\
-mi li jo e ilo python pi 3.12.3.
-mi kama kepeken ilo python3 lon lipu sona ni.
-
-<!--sudo apt install python3.12-dev for pyo3 to work correctly on Linux-->
 
 o sina te ```python3 writer.py --help``` to
 
@@ -24,8 +24,10 @@ o sina te ```python3 writer.py --help``` to
 python3 writer.py -w 200 -n './test/sin.tlptk' -p 1400 -s 600
 ```
 
-## nasin sitelen
+nasin lon pi ilo sona pi pana open li sama e pana weka
 
+## nasin sitelen
+  `
 ilo ni pi tenpo ni li lili
 sitelen wan pi sitelen weka li te ```_``` to
 

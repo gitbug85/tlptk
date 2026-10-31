@@ -12,7 +12,7 @@ def test_function():
 
 parser = argparse.ArgumentParser(description="Tool to write TLPTK SVGs")
 parser.add_argument("-w", type=int, required=True, help="suli pi sitelen wan (glyph cell size)")
-parser.add_argument("-n", type=str, required=True, help="nasin pi ilo sona (local path to the input file)")
+parser.add_argument("-n", type=str, required=True, help="nasin lon pi ilo sona (path)")
 parser.add_argument("-p", type=int, required=True, help="suli tawa poka (SVG width)")
 parser.add_argument("-s", type=int, required=True, help="suli (SVG height)")
 args = parser.parse_args()
@@ -164,6 +164,7 @@ def interpret():
 
     print(f"SVG written to {output_path}")
 
+    return ET.tostring(svg, encoding='utf-8').decode('utf-8')
 
 def main():
-    interpret()
+    return interpret()

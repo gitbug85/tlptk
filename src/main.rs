@@ -8,7 +8,11 @@ fn main() -> eframe::Result<()> {
     eframe::run_native(
         "tlptk",
         options,
-        Box::new(|_cc| Ok(Box::new(MyApp::default()))),
+        Box::new(|cc| {
+            egui_extras::install_image_loaders(&cc.egui_ctx);
+
+            Ok(Box::new(MyApp::default()))
+        }),
     )
 }
 
@@ -31,17 +35,11 @@ impl eframe::App for MyApp {
                 ui.text_edit_singleline(&mut self.path);
             });
 
-            if ui.button("Increment glyph_size").clicked() {
-                self.glyph_size += 1;
-            }
+            ui.add(egui::Slider::new(&mut self.glyph_size, 1..=200).text("Glyph Size"));
 
-            if ui.button("Increment svg_width").clicked() {
-                self.svg_width += 1;
-            }
+            ui.add(egui::Slider::new(&mut self.svg_width, 1..=2000).text("SVG Width"));
 
-            if ui.button("Increment svg_height").clicked() {
-                self.svg_height += 1;
-            }
+            ui.add(egui::Slider::new(&mut self.svg_height, 1..=2000).text("SVG Height"));
 
             if ui.button("TEST PYTHON").clicked() {
                 self.python_result = Python::with_gil(|py| {
@@ -57,35 +55,39 @@ impl eframe::App for MyApp {
                         sys.getattr("path")?.call_method1("insert", (0, cwd))?;
 
                         // Set command-line arguments
-                        let args = vec![
+                        let glyph_size = self.glyph_size.to_string();
+                        let svg_width = self.svg_width.to_string();
+                        let svg_height = self.svg_height.to_string();
+
+                        let py_args = vec![
                             "writer.py".to_string(),
                             "-w".to_string(),
-                            self.glyph_size.to_string(),
+                            glyph_size,
                             "-n".to_string(),
                             self.path.clone(),
                             "-p".to_string(),
-                            self.svg_width.to_string(),
+                            svg_width,
                             "-s".to_string(),
-                            self.svg_height.to_string(),
+                            svg_height,
                         ];
 
-                        let sys_argv = PyModule::import(py, "sys")?.getattr("argv")?;
+                        // Update Python's argv with the latest Rust values.
+                        let sys = PyModule::import(py, "sys")?;
+                        let sys_argv = sys.getattr("argv")?;
 
-                        let py_args = args
-                            .iter()
-                            .map(|arg| arg.to_string())
-                            .collect::<Vec<String>>();
+                        sys_argv.call_method0("clear")?;
 
-                        sys_argv.call_method1("clear", ())?;
-
-                        for arg in py_args {
+                        for arg in &py_args {
                             sys_argv.call_method1("append", (arg,))?;
                         }
 
-                        // Import writer module
+                        // Import and explicitly reload writer.py.
+                        let importlib = PyModule::import(py, "importlib")?;
                         let module = PyModule::import(py, "writer")?;
 
-                        // Call main() (argparse entry point)
+                        let module = importlib.call_method1("reload", (module,))?;
+
+                        // Execute main() with the updated arguments.
                         let result = module.getattr("main")?.call0()?;
 
                         match result.extract::<String>() {
@@ -111,7 +113,19 @@ impl eframe::App for MyApp {
             ui.separator();
 
             ui.heading("Python Output:");
-            ui.label(&self.python_result);
+
+            if self.python_result.trim_start().starts_with("<svg") {
+                let svg_bytes = self.python_result.as_bytes().to_vec();
+
+                let uri = "bytes://python_output.svg";
+
+                ui.add(
+                    egui::Image::from_bytes(uri, svg_bytes)
+                        .fit_to_exact_size(egui::vec2(1000.0, 1000.0)),
+                );
+            } else {
+                ui.label(&self.python_result);
+            }
         });
     }
 }
