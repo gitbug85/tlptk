@@ -5,3 +5,4 @@ edition = "2024"
 
 [dependencies]
 eframe = "0.31"
+pyo3 = { version = "0.24", features = ["auto-initialize"] }
