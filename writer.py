@@ -7,14 +7,12 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 from lexer import lex
 
-def test_function():
-    return "Yay!"
-
 parser = argparse.ArgumentParser(description="Tool to write TLPTK SVGs")
 parser.add_argument("-w", type=int, required=True, help="suli pi sitelen wan (glyph cell size)")
-parser.add_argument("-n", type=str, required=True, help="nasin lon pi ilo sona (path)")
+parser.add_argument("-n", type=str, required=False, help="nasin lon pi ilo sona (path)")
 parser.add_argument("-p", type=int, required=True, help="suli tawa poka (SVG width)")
 parser.add_argument("-s", type=int, required=True, help="suli (SVG height)")
+parser.add_argument("-o", type=str, required=False, help="pana open pi sitelen (input content directly)")
 args = parser.parse_args()
 
 SVG_NS = "http://www.w3.org/2000/svg"
@@ -82,6 +80,7 @@ def draw(content: str, svg: ET.Element):
     w = args.w
 
     fragments = lex(content, "*& \n\t_[]")
+    print(fragments)
 
     overlay_next = False
 
@@ -127,14 +126,16 @@ def draw(content: str, svg: ET.Element):
 
 
 def interpret():
+    if not (args.n or args.o):
+        parser.error("Must provide either path or input text using -n or -o respectively")
     if min(args.w, args.p, args.s) <= 0:
         parser.error("-w, -p, and -s must be positive integers")
 
-    print(args.n)
-    input_path = Path(args.n)
-
     try:
-        content = input_path.read_text(encoding="utf-8")
+        if args.o:
+            content = args.o
+        else:
+            content = Path(args.n).read_text(encoding="utf-8")
     except OSError as exc:
         parser.error(f"Cannot read input file: {exc}")
 
@@ -150,11 +151,15 @@ def interpret():
     )
 
     try:
+        print(content)
         draw(content, svg)
     except (OSError, ET.ParseError, ValueError) as exc:
         parser.error(str(exc))
 
-    output_path = input_path.parent / (input_path.stem + ".svg")
+    if args.n:
+        output_path = Path(args.n).parent / (Path(args.n).stem + ".svg")
+    else:
+        output_path = Path("./test/example.svg")
 
     ET.ElementTree(svg).write(
         output_path,

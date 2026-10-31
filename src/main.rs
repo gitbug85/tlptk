@@ -18,7 +18,7 @@ fn main() -> eframe::Result<()> {
 
 #[derive(Default)]
 struct MyApp {
-    path: String,
+    content: String,
     glyph_size: i32,
     svg_width: i32,
     svg_height: i32,
@@ -31,8 +31,17 @@ impl eframe::App for MyApp {
             ui.heading("Generate SVG");
 
             ui.horizontal(|ui| {
-                ui.label("Path:");
-                ui.text_edit_singleline(&mut self.path);
+                ui.label("Content:");
+
+                egui::ScrollArea::vertical()
+                    .max_height(f32::INFINITY)
+                    .show(ui, |ui| {
+                        ui.add(
+                            egui::TextEdit::multiline(&mut self.content)
+                                .desired_width(500.0)
+                                .desired_rows(10),
+                        );
+                    });
             });
 
             ui.add(egui::Slider::new(&mut self.glyph_size, 1..=200).text("Glyph Size"));
@@ -63,8 +72,8 @@ impl eframe::App for MyApp {
                             "writer.py".to_string(),
                             "-w".to_string(),
                             glyph_size,
-                            "-n".to_string(),
-                            self.path.clone(),
+                            "-o".to_string(),
+                            self.content.clone(),
                             "-p".to_string(),
                             svg_width,
                             "-s".to_string(),
@@ -98,21 +107,14 @@ impl eframe::App for MyApp {
 
                     match result {
                         Ok(value) => value,
-                        Err(err) => format!("Python Error: {}", err),
+                        Err(err) => format!("Error: {}", err),
                     }
                 });
             }
 
             ui.separator();
 
-            ui.label(format!("Counter 1: {}", self.glyph_size));
-            ui.label(format!("Counter 2: {}", self.svg_width));
-            ui.label(format!("Counter 3: {}", self.svg_height));
-            ui.label(format!("Path: {}!", self.path));
-
-            ui.separator();
-
-            ui.heading("Python Output:");
+            ui.heading("Output:");
 
             if self.python_result.trim_start().starts_with("<svg") {
                 let svg_bytes = self.python_result.as_bytes().to_vec();

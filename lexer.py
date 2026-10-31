@@ -13,6 +13,9 @@ def lex(content: str, characters: str) -> list[str]:
             if char != " ":
                 kulupu_nimi.append(char)
 
+    if nimi:
+        kulupu_nimi.append(nimi)
+
     # Attach * as a postfix
     asterisk_kulupu_nimi = []
     last_nimi = ""

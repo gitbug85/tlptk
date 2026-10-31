@@ -18,6 +18,8 @@ Generally Add:
  - X Less space between glyphs
  - X Cartouche (poki nimi)
  - X [] denote cartouche
+ - X Solve error why it's not writing last glyph
+ - Solve problem of not updating the svg in Rust (theory: the -o argument can't be updated but Rust keeps the same Python instance up?)
 
 Do NOT Add:
  - ANY of the u words (pu, ku, etc...)
