@@ -10,7 +10,7 @@ jobs:
     name: Build and Release
     runs-on: ubuntu-latest
     permissions:
-      contents: write # Allows the runner to upload the compiled binary to the existing release
+      contents: write
 
     steps:
       - name: Checkout Code
@@ -22,9 +22,17 @@ jobs:
       - name: Build Binary in Release Mode
         run: cargo build --release
 
-      - name: Upload Binary to Release
+      - name: Package Project and Binary
+        run: |
+          mkdir -p release/package/project
+          tar --exclude='.git' --exclude='target' --exclude='release' \
+            -cf - . | tar -xf - -C release/package/project
+          cp target/release/tlptk release/package/project/
+          tar -czf release/tlptk.tar.gz -C release/package project
+
+      - name: Upload Archive to Release
         uses: softprops/action-gh-release@v2
         with:
-          files: target/release/tlptk
+          files: release/tlptk.tar.gz
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

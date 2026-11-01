@@ -28,7 +28,7 @@ o sina te ```python3 convert.py --help``` to\
 nasin lon pi ilo sona pi pana open li sama e pana weka
 
 ## nasin sitelen
-  
+
 ilo ni pi tenpo ni li lili
 sitelen wan pi sitelen weka li te ```_``` to
 
