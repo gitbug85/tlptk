@@ -9,7 +9,7 @@ linux li jo e nimi python3. windows li jo e nimi python.\
 mi jo e ilo python pi 3.12.3.
 mi kama kepeken ilo python3 lon lipu sona ni.
 
-<!--sudo apt install python3.12-dev for pyo3 to work correctly on Linux (experimental features)-->
+<!--sudo apt install python3.12-dev for pyo3 to work correctly on Linux (experimental features)   sudo apt install inkscape   python3 convert.py -n./nimi.svg -l png -p 1000-->
 
 o wile jo e ilo python https://www.python.org/downloads/ \
 o luka lili te ```< > Code ⌄``` to laso\

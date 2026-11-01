@@ -1,4 +1,3 @@
-
 import re
 import sys
 import copy
@@ -147,7 +146,18 @@ def interpret():
             "width": str(args.p),
             "height": str(args.s),
             "viewBox": f"0 0 {args.p} {args.s}",
-            "style": "background-color: white;",
+        },
+    )
+
+    ET.SubElement(
+        svg,
+        tag("rect"),
+        {
+            "x": "0",
+            "y": "0",
+            "width": "100%",
+            "height": "100%",
+            "fill": "#FFFFFF",
         },
     )
 

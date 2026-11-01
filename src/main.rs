@@ -81,12 +81,12 @@ impl MyApp {
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            ui.heading("Generate SVG");
+            ui.heading("lon SVG li te ./test/output.svg to");
 
             let mut should_update = false;
 
             ui.horizontal(|ui| {
-                ui.label("Content:");
+                ui.label("sitelen pi pana open:");
 
                 egui::ScrollArea::vertical()
                     .max_height(f32::INFINITY)
@@ -102,39 +102,37 @@ impl eframe::App for MyApp {
             });
 
             should_update |= ui
-                .add(egui::Slider::new(&mut self.glyph_size, 1..=200).text("Glyph Size"))
+                .add(egui::Slider::new(&mut self.glyph_size, 1..=200).text("suli pi sitelen wan"))
                 .changed();
 
             should_update |= ui
-                .add(egui::Slider::new(&mut self.svg_width, 1..=2000).text("SVG Width"))
+                .add(egui::Slider::new(&mut self.svg_width, 1..=2000).text("suli tawa poka"))
                 .changed();
 
             should_update |= ui
-                .add(egui::Slider::new(&mut self.svg_height, 1..=2000).text("SVG Height"))
+                .add(egui::Slider::new(&mut self.svg_height, 1..=2000).text("suli"))
                 .changed();
 
             // Regenerate SVG whenever an input changes.
             if should_update {
                 self.update_python_result();
 
-                self.svg_bytes = self.python_result.as_bytes().to_vec();
-                self.svg_version += 1;
+                if self.python_result.trim_start().starts_with("<svg") {
+                    self.svg_bytes = self.python_result.as_bytes().to_vec();
+                    self.svg_version += 1;
+                }
             }
 
             ui.separator();
 
-            ui.heading("Output:");
+            ui.heading("pana weka:");
 
-            if self.python_result.trim_start().starts_with("<svg") {
-                let uri = format!("bytes://python_output_{}.svg", self.svg_version);
+            let uri = format!("bytes://python_output_{}.svg", self.svg_version);
 
-                ui.add(
-                    egui::Image::from_bytes(uri, self.svg_bytes.clone())
-                        .fit_to_exact_size(egui::vec2(500.0, 500.0)),
-                );
-            } else {
-                ui.label(&self.python_result);
-            }
+            ui.add(
+                egui::Image::from_bytes(uri, self.svg_bytes.clone())
+                    .fit_to_exact_size(egui::vec2(500.0, 500.0)),
+            );
         });
     }
 }
