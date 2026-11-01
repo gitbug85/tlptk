@@ -5,24 +5,25 @@ nasin lawa en nasin sitelen pi ilo ni li lon anpa.
 
 ## o jo
 
-linux li jo e nimi python3. windows li jo e nimi python.\
-mi jo e ilo python pi 3.12.3.
-mi kama kepeken ilo python3 lon lipu sona ni.
+mi kepeken e linux.\
+sina kepeken windows la sina kepeken ala e lipu sona ni.
 
-<!--sudo apt install python3.12-dev for pyo3 to work correctly on Linux (experimental features)   sudo apt install inkscape   python3 convert.py -n./nimi.svg -l png -p 1000-->
+o wile jo e ilo python:\
+```sudo apt install python3.12-dev```
 
-o wile jo e ilo python https://www.python.org/downloads/ \
+<!-- sudo apt install inkscape   -->
+
 o luka lili te ```< > Code ⌄``` to laso\
 o luka lili te ```Download ZIP``` to\
 o pali e kulupu tan ZIP
 
 ## o kepeken
 
-o sina te ```python3 writer.py --help``` to
+o sina te ```python3 writer.py --help``` to\
+```python3 writer.py -w 200 -n './test/sin.tlptk' -p 1400 -s 600```
 
-```bash
-python3 writer.py -w 200 -n './test/sin.tlptk' -p 1400 -s 600
-```
+o sina te ```python3 convert.py --help``` to\
+```python3 convert.py -n ./nimi.svg -l png -p 1000```
 
 nasin lon pi ilo sona pi pana open li sama e pana weka
 
