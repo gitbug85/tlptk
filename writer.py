@@ -79,7 +79,6 @@ def draw(content: str, svg: ET.Element):
     w = args.w
 
     fragments = lex(content, "*& \n\t_[]")
-    print(fragments)
 
     overlay_next = False
 
@@ -132,7 +131,6 @@ def interpret():
 
     try:
         if args.o:
-            print(args.o)
             content = args.o
         else:
             content = Path(args.n).read_text(encoding="utf-8")
@@ -160,7 +158,6 @@ def interpret():
             "fill": "#FFFFFF",
         },
     )
-
     try:
         draw(content, svg)
     except (OSError, ET.ParseError, ValueError) as exc:
@@ -183,3 +180,6 @@ def interpret():
 
 def main():
     return interpret()
+
+if __name__ == '__main__':
+    interpret()
