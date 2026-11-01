@@ -13,9 +13,9 @@ o wile jo e ilo python:\
 
 <!-- sudo apt install inkscape   -->
 
-o luka lili te ```< > Code ⌄``` to laso\
-o luka lili te ```Download ZIP``` to\
-o pali e kulupu tan ZIP
+o luka lili te ```Releases``` to\
+o kama jo te ```tlptk.tar.gz``` to tan GitHub\
+o pali e kulupu tan ```tlptk.tar.gz```
 
 ## o kepeken
 
