@@ -20,7 +20,8 @@ Generally Add:
  - X [] denote cartouche
  - X Solve error why it's not writing last glyph
  - X Solve problem of not updating the svg in Rust (Python isn't the problem bc it can successfully write the SVG)
- - 
+ - Add sitelen lasina with ''
+ - Add te and to as ""
 
 Do NOT Add:
  - ANY of the u words (pu, ku, etc...)
