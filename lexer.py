@@ -2,15 +2,26 @@
 def lex(content: str, characters: str) -> list[str]:
 
     # Seperate content by the characters listed while discarding spaces
+    # except when inside single quotes.
+
     nimi = ""
     kulupu_nimi = []
+    quote = None
+
     for char in content:
+        if char == "'":
+            if quote is None:
+                quote = char
+            elif quote == char:
+                quote = None
+
         if char not in characters:
-            nimi += char
+            if char != " " or quote is not None:
+                nimi += char
         else:
             kulupu_nimi.append(nimi)
             nimi = ""
-            if char != " ":
+            if char != " " or quote is not None:
                 kulupu_nimi.append(char)
 
     if nimi:
@@ -56,16 +67,37 @@ def lex(content: str, characters: str) -> list[str]:
             else:
                 kulupu_nimi_with_poki_nimi.append(nimi)
 
-    final_kulupu_nimi = []
-    in_poki_nimi = False
+    lasina_kulupu_nimi = []
+    in_sitelen_lasina = False
 
     for nimi in kulupu_nimi_with_poki_nimi:
         if nimi == "'":
-            if in_poki_nimi == False:
-                in_poki_nimi = True
-                print("In")
+            if in_sitelen_lasina == False:
+                in_sitelen_lasina = True
             else:
-                in_poki_nimi = False
-                print("Out")
+                in_sitelen_lasina = False
+        elif in_sitelen_lasina:
+            for char in nimi:
+                if char == " ":
+                    lasina_kulupu_nimi.append("_")
+                else:
+                    lasina_kulupu_nimi.append("letter-" + char)
+        else:
+            lasina_kulupu_nimi.append(nimi)
 
-    return kulupu_nimi_with_poki_nimi
+    final_kulupu_nimi = []
+    in_quote = False
+
+    for nimi in lasina_kulupu_nimi:
+        if nimi == '"':
+            if in_quote:
+                final_kulupu_nimi.append("to")
+                in_quote = False
+            else:
+                final_kulupu_nimi.append("te")
+                in_quote = True
+        else:
+            final_kulupu_nimi.append(nimi)
+
+
+    return final_kulupu_nimi

@@ -54,8 +54,6 @@ mi jan sin_sitelen pona li pona tawa mi a
 mi wile e ni la jan pi toki pona li kama mute a
 ```
 
-pana weka:
-
 ![sin](./sin.svg)
 
 nimi poki li kepeken e te ```[]``` to.
@@ -64,8 +62,22 @@ nimi poki li kepeken e te ```[]``` to.
 nimi mi li [jan pi pipi luka]
 ```
 
-```bash
-python3 writer.py -w 200 -n './test/nimi.tlptk' -p 800 -s 200
+![nimi](./nimi.svg)
+
+nimi ante li kepeken e te ```*``` to.
+
+```tlptk
+sewi*mute*
 ```
 
-![nimi](./nimi.svg)
+sitelen lasina li kepeken e te ```''``` to.
+
+```tlptk
+'toki pona'
+```
+
+nimi te e nimi to li kepeken e te ```""``` to.
+
+```tlptk
+"toki pona"
+```
