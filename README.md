@@ -46,38 +46,22 @@ nasin lon pi ilo sona pi pana open li sama e pana weka.
 
 ## nasin sitelen
 
-sitelen wan pi sitelen weka li te ```_``` to.
-
-```tlptk
-ilo ni li toki lukin pi telo kule
-mi jan sin_sitelen pona li pona tawa mi a
-mi wile e ni la jan pi toki pona li kama mute a
-```
-
-![sin](./sin.svg)
-
-nimi poki li kepeken e te ```[]``` to.
-
-```tlptk
-nimi mi li [jan pi pipi luka]
-```
-
-![nimi](./nimi.svg)
-
-nimi ante li kepeken e te ```*``` to.
-
-```tlptk
-sewi*mute*
-```
-
-sitelen lasina li kepeken e te ```''``` to.
-
-```tlptk
-'toki pona'
-```
-
+sitelen wan pi sitelen weka li te ```_``` to.\
+nimi poki li kepeken e te ```[]``` to.\
+nimi ante li kepeken e te ```*``` to.\
+sitelen lasina li kepeken e te ```''``` to.\
 nimi te e nimi to li kepeken e te ```""``` to.
 
 ```tlptk
-"toki pona"
+nimi mi li [jan pi pipi luka]
+"pipi luka"_'nimi mi li kepeken e toki inli taso'
+'mi sona mute ala e toki pona'
+ilo ni li toki lukin pi telo kule
+mi jan sin_sitelen pona li pona tawa mi a
+mi wile e ni la jan pi toki pona li kama mute a
+
+kin nasin sitelen lukin "mute mute* sewi sewi*"
 ```
+```python3 writer.py -w 200 -n './test/sin.tlptk' -p 4600 -s 1600```
+
+![sin](./sin.svg)

@@ -22,6 +22,7 @@ Generally Add:
  - X Solve problem of not updating the svg in Rust (Python isn't the problem bc it can successfully write the SVG)
  - X Add sitelen lasina with ''
  - X Add te and to as ""
+ - Change p, u, and maybe w letters
 
 Do NOT Add:
  - ANY of the u words (pu, ku, etc...)
