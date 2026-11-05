@@ -23,7 +23,7 @@ Generally Add:
  - X Add sitelen lasina with ''
  - X Add te and to as ""
  - X Change p, u, and maybe w letters
- - Add a license
+ - X Add a license
  - Split syntax into a seperate file
  - Make an English readme
  - Add support for ttf characters that use the private use area
