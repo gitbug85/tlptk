@@ -30,7 +30,7 @@ def lex(content: str, characters: str) -> list[str]:
 
     # poki nimi
 
-    final_kulupu_nimi = []
+    kulupu_nimi_with_poki_nimi = []
     in_poki_nimi = False
     start = False
 
@@ -39,21 +39,33 @@ def lex(content: str, characters: str) -> list[str]:
             start = True
         elif nimi == "]":
             in_poki_nimi = False
-            final_kulupu_nimi = final_kulupu_nimi[:-2]
-            final_kulupu_nimi.append("&")
-            final_kulupu_nimi.append("teje+pi+nimi+poki")
+            kulupu_nimi_with_poki_nimi = kulupu_nimi_with_poki_nimi[:-2]
+            kulupu_nimi_with_poki_nimi.append("&")
+            kulupu_nimi_with_poki_nimi.append("teje+pi+nimi+poki")
         else:
             if in_poki_nimi:
-                final_kulupu_nimi.append(nimi)
-                final_kulupu_nimi.append("&")
-                final_kulupu_nimi.append("meso+pi+nimi+poki")
+                kulupu_nimi_with_poki_nimi.append(nimi)
+                kulupu_nimi_with_poki_nimi.append("&")
+                kulupu_nimi_with_poki_nimi.append("meso+pi+nimi+poki")
             elif start:
-                final_kulupu_nimi.append(nimi)
-                final_kulupu_nimi.append("&")
-                final_kulupu_nimi.append("soto+pi+nimi+poki")
+                kulupu_nimi_with_poki_nimi.append(nimi)
+                kulupu_nimi_with_poki_nimi.append("&")
+                kulupu_nimi_with_poki_nimi.append("soto+pi+nimi+poki")
                 start = False
                 in_poki_nimi = True
             else:
-                final_kulupu_nimi.append(nimi)
+                kulupu_nimi_with_poki_nimi.append(nimi)
 
-    return final_kulupu_nimi
+    final_kulupu_nimi = []
+    in_poki_nimi = False
+
+    for nimi in kulupu_nimi_with_poki_nimi:
+        if nimi == "'":
+            if in_poki_nimi == False:
+                in_poki_nimi = True
+                print("In")
+            else:
+                in_poki_nimi = False
+                print("Out")
+
+    return kulupu_nimi_with_poki_nimi
