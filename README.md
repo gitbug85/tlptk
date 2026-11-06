@@ -1,6 +1,6 @@
 # toki lukin pi telo kule
 
-![video](./video.gif)
+![video](./demo.gif)
 
 ilo ni li pali e SVG pi sitelen pona.\
 nasin lawa en nasin sitelen pi ilo ni li lon anpa.
