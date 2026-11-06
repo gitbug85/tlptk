@@ -24,9 +24,8 @@ Generally Add:
  - X Add te and to as ""
  - X Change p, u, and maybe w letters
  - X Add a license
- - Split syntax into a seperate file
- - Make an English readme
- - Add support for ttf characters that use the private use area
+ - X Split syntax into a seperate file
+ - X Change the ui to look better
 
 Do NOT Add:
  - ANY of the u words (pu, ku, etc...)

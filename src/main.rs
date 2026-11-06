@@ -81,58 +81,76 @@ impl MyApp {
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
+            let mut should_update = false;
             ui.heading("lon SVG li te ./test/output.svg to");
 
-            let mut should_update = false;
-
             ui.horizontal(|ui| {
-                ui.label("sitelen pi pana open:");
+                ui.label("suli pi sitelen wan:");
+                should_update |= ui
+                    .add(egui::Slider::new(&mut self.glyph_size, 1..=200).show_value(true))
+                    .changed();
 
-                egui::ScrollArea::vertical()
-                    .max_height(f32::INFINITY)
-                    .show(ui, |ui| {
-                        should_update |= ui
-                            .add(
-                                egui::TextEdit::multiline(&mut self.content)
-                                    .desired_width(500.0)
-                                    .desired_rows(10),
-                            )
-                            .changed();
-                    });
+                ui.label("suli tawa poka:");
+                should_update |= ui
+                    .add(egui::Slider::new(&mut self.svg_width, 1..=2000).show_value(true))
+                    .changed();
+
+                ui.label("suli:");
+                should_update |= ui
+                    .add(egui::Slider::new(&mut self.svg_height, 1..=2000).show_value(true))
+                    .changed();
             });
-
-            should_update |= ui
-                .add(egui::Slider::new(&mut self.glyph_size, 1..=200).text("suli pi sitelen wan"))
-                .changed();
-
-            should_update |= ui
-                .add(egui::Slider::new(&mut self.svg_width, 1..=2000).text("suli tawa poka"))
-                .changed();
-
-            should_update |= ui
-                .add(egui::Slider::new(&mut self.svg_height, 1..=2000).text("suli"))
-                .changed();
-
-            // Regenerate SVG whenever an input changes.
-            if should_update {
-                self.update_python_result();
-
-                if self.python_result.trim_start().starts_with("<svg") {
-                    self.svg_bytes = self.python_result.as_bytes().to_vec();
-                    self.svg_version += 1;
-                }
-            }
 
             ui.separator();
 
-            ui.heading("pana weka:");
+            ui.horizontal(|ui| {
+                let column_width = (ui.available_width() - ui.spacing().item_spacing.x) / 2.0;
 
-            let uri = format!("bytes://python_output_{}.svg", self.svg_version);
+                ui.allocate_ui_with_layout(
+                    egui::vec2(column_width, 1000.0),
+                    egui::Layout::top_down(egui::Align::Min),
+                    |ui| {
+                        ui.label("sitelen pi pana open:");
 
-            ui.add(
-                egui::Image::from_bytes(uri, self.svg_bytes.clone())
-                    .fit_to_exact_size(egui::vec2(500.0, 500.0)),
-            );
+                        egui::ScrollArea::vertical().show(ui, |ui| {
+                            should_update |= ui
+                                .add(
+                                    egui::TextEdit::multiline(&mut self.content)
+                                        .desired_width(column_width)
+                                        .desired_rows(10)
+                                        .min_size(egui::vec2(column_width, 1000.0)),
+                                )
+                                .changed();
+                        });
+
+                        if should_update {
+                            self.update_python_result();
+
+                            if self.python_result.trim_start().starts_with("<svg") {
+                                self.svg_bytes = self.python_result.as_bytes().to_vec();
+                                self.svg_version += 1;
+                            }
+                        }
+                    },
+                );
+
+                ui.separator();
+
+                ui.allocate_ui_with_layout(
+                    egui::vec2(column_width, ui.available_height()),
+                    egui::Layout::top_down(egui::Align::Min),
+                    |ui| {
+                        ui.heading("pana weka:");
+
+                        let uri = format!("bytes://python_output_{}.svg", self.svg_version);
+
+                        ui.add(
+                            egui::Image::from_bytes(uri, self.svg_bytes.clone())
+                                .fit_to_exact_size(egui::vec2(column_width, column_width)),
+                        );
+                    },
+                );
+            });
         });
     }
 }
