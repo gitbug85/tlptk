@@ -1,9 +1,14 @@
 
 def lex(content: str, characters: str) -> list[str]:
+    kulupu_nimi = seperate(content, characters)
+    kulupu_nimi = postfix_asterisk(kulupu_nimi)
+    kulupu_nimi = assign_poki_nimi_glyphs(kulupu_nimi)
+    kulupu_nimi = replace_quotes(kulupu_nimi)
+    return kulupu_nimi
 
-    # Seperate content by the characters listed while discarding spaces
-    # except when inside single quotes.
-
+# Seperate content by the characters listed while discarding spaces
+# except when inside single quotes.
+def seperate(content: str, characters: str):
     nimi = ""
     kulupu_nimi = []
     quote = None
@@ -27,77 +32,61 @@ def lex(content: str, characters: str) -> list[str]:
     if nimi:
         kulupu_nimi.append(nimi)
 
-    # Attach * as a postfix
-    asterisk_kulupu_nimi = []
+    return kulupu_nimi
+
+def postfix_asterisk(kulupu_nimi):
+    kulupu_nimi_sin = []
     last_nimi = ""
     for nimi in kulupu_nimi:
         if nimi == "*":
             last_nimi += nimi
-            asterisk_kulupu_nimi.pop()
-            asterisk_kulupu_nimi.append(last_nimi)
+            kulupu_nimi_sin.pop()
+            kulupu_nimi_sin.append(last_nimi)
         else:
             last_nimi = nimi
-            asterisk_kulupu_nimi.append(nimi)
+            kulupu_nimi_sin.append(nimi)
+    return kulupu_nimi_sin
 
-    # poki nimi
-
-    kulupu_nimi_with_poki_nimi = []
+def assign_poki_nimi_glyphs(kulupu_nimi):
+    kulupu_nimi_sin = []
     in_poki_nimi = False
     start = False
 
-    for nimi in asterisk_kulupu_nimi:
+    for nimi in kulupu_nimi:
         if nimi == "[":
             start = True
         elif nimi == "]":
             in_poki_nimi = False
-            kulupu_nimi_with_poki_nimi = kulupu_nimi_with_poki_nimi[:-2]
-            kulupu_nimi_with_poki_nimi.append("&")
-            kulupu_nimi_with_poki_nimi.append("teje+pi+nimi+poki")
+            kulupu_nimi_sin = kulupu_nimi_sin[:-2]
+            kulupu_nimi_sin.append("&")
+            kulupu_nimi_sin.append("teje+pi+nimi+poki")
         else:
             if in_poki_nimi:
-                kulupu_nimi_with_poki_nimi.append(nimi)
-                kulupu_nimi_with_poki_nimi.append("&")
-                kulupu_nimi_with_poki_nimi.append("meso+pi+nimi+poki")
+                kulupu_nimi_sin.append(nimi)
+                kulupu_nimi_sin.append("&")
+                kulupu_nimi_sin.append("meso+pi+nimi+poki")
             elif start:
-                kulupu_nimi_with_poki_nimi.append(nimi)
-                kulupu_nimi_with_poki_nimi.append("&")
-                kulupu_nimi_with_poki_nimi.append("soto+pi+nimi+poki")
+                kulupu_nimi_sin.append(nimi)
+                kulupu_nimi_sin.append("&")
+                kulupu_nimi_sin.append("soto+pi+nimi+poki")
                 start = False
                 in_poki_nimi = True
             else:
-                kulupu_nimi_with_poki_nimi.append(nimi)
+                kulupu_nimi_sin.append(nimi)
+    return kulupu_nimi_sin
 
-    lasina_kulupu_nimi = []
-    in_sitelen_lasina = False
-
-    for nimi in kulupu_nimi_with_poki_nimi:
-        if nimi == "'":
-            if in_sitelen_lasina == False:
-                in_sitelen_lasina = True
-            else:
-                in_sitelen_lasina = False
-        elif in_sitelen_lasina:
-            for char in nimi:
-                if char == " ":
-                    lasina_kulupu_nimi.append("_")
-                else:
-                    lasina_kulupu_nimi.append("letter-" + char)
-        else:
-            lasina_kulupu_nimi.append(nimi)
-
-    final_kulupu_nimi = []
+def replace_quotes(kulupu_nimi):
+    kulupu_nimi_sin = []
     in_quote = False
 
-    for nimi in lasina_kulupu_nimi:
+    for nimi in kulupu_nimi:
         if nimi == '"':
             if in_quote:
-                final_kulupu_nimi.append("to")
+                kulupu_nimi_sin.append("to")
                 in_quote = False
             else:
-                final_kulupu_nimi.append("te")
+                kulupu_nimi_sin.append("te")
                 in_quote = True
         else:
-            final_kulupu_nimi.append(nimi)
-
-
-    return final_kulupu_nimi
+            kulupu_nimi_sin.append(nimi)
+    return kulupu_nimi_sin
