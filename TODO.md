@@ -27,7 +27,7 @@ Generally Add:
  - X Split syntax into a seperate file
  - X Change the ui to look better
  - nvm too hard apparently -> Add autocomplete
- - Add Nim file to transform text file into svg or read data for stacking or putting glyphs inside other glyphs
+ - Add Nim file to transform text file into svg
 
 Do NOT Add:
  - ANY of the u words (pu, ku, etc...)
