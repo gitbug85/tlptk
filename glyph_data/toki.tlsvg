@@ -1,3 +1,10 @@
+insa 33 40 40
 <svg height="100" width="100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-  <circle cx="50" cy="50" r="40" fill="red" />
+  <line x1="18" y1="4" x2="30" y2="30" stroke="black" stroke-width="10" />
+  <line x1="50" y1="4" x2="50" y2="26" stroke="black" stroke-width="10" />
+  <line x1="82" y1="4" x2="70" y2="30" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="66" r="30"
+          fill="none"
+          stroke="black"
+          stroke-width="10" />
 </svg>
