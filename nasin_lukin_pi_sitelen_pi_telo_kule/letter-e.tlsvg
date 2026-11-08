@@ -1,0 +1,16 @@
+insa0.33550
+<svg height="100" width="100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<defs>
+    <mask id="stroke-cutout">
+      <!-- 1. White background fills the mask area to keep everything visible -->
+      <rect width="100%" height="100%" fill="white" />
+
+      <!-- 2. A black stroke acts as the eraser, cutting a hole through the white mask -->
+      <rect x="50" y="65" width="100" height="10" rx="15" ry="15" fill="black" />
+    </mask>
+  </defs>
+  <line x1="20" y1="60" x2="80" y2="60" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="66" r="30"
+          fill="none"
+          stroke="black"
+          stroke-width="10" mask="url(#stroke-cutout)" />
