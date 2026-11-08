@@ -5,6 +5,7 @@ import argparse
 from pathlib import Path
 import xml.etree.ElementTree as ET
 from lexer import lex
+import subprocess
 
 parser = argparse.ArgumentParser(description="Tool to write TLPTK SVGs")
 parser.add_argument("-w", type=int, required=True, help="suli pi sitelen wan (glyph cell size)")
@@ -49,8 +50,6 @@ def load_glyph(svg_path, x, y, cell_size):
     """Embed a glyph SVG inside the output SVG."""
     if not svg_path.is_file():
         raise FileNotFoundError(f"Glyph not found: {svg_path}")
-    if svg_path.suffix != ".tlptk":
-        sys.exit("Error: File should end in .tlptk")
 
     source = ET.parse(svg_path).getroot()
 
@@ -107,22 +106,26 @@ def draw(content: str, svg: ET.Element):
             overlay_next = True
             continue
 
-        # If the previous fragment was &, overlay this glyph
-        # on the previous glyph instead of advancing.
-        if prev_x is not None and prev_y is not None and overlay_next:
-            glyph_path = GLYPH_DIR / f"{frag}.svg"
-            glyph = load_glyph(glyph_path, prev_x, prev_y, w)
-            svg.append(glyph)
-            overlay_next = False
-            continue
+        command = ["./get_svg", frag]
 
-        glyph_path = GLYPH_DIR / f"{frag}.svg"
-        glyph = load_glyph(glyph_path, x, y, w)
-        svg.append(glyph)
+        try:
+            result = subprocess.run(
+                command,
+                capture_output=True,  # Saves stdout and stderr to the result object
+                text=True,            # Decodes output bytes into a string automatically
+                check=True            # Automatically raises an error if the binary fails
+            )
 
-        prev_x, prev_y = x, y
-        x += w + GLYPH_SPACING
-        overlay_next = False
+            svg.append(ET.fromstring(result.stdout))
+
+        except subprocess.CalledProcessError as e:
+            # Handle failures if the binary returns a non-zero exit status
+            print(f"Binary failed with exit code {e.returncode}")
+            print("Error output:", e.stderr)
+
+        except FileNotFoundError:
+            # Handle failures if the binary file does not exist at the given path
+            print("Error: The specified binary could not be found.")
 
 
 def interpret():
@@ -135,6 +138,8 @@ def interpret():
         if args.o:
             content = args.o
         else:
+            if Path(args.n).suffix != ".tlptk":
+                sys.exit("Error: File should end in .tlptk")
             content = Path(args.n).read_text(encoding="utf-8")
     except OSError as exc:
         parser.error(f"Cannot read input file: {exc}")

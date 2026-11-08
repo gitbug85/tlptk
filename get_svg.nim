@@ -1,8 +1,4 @@
-import std/[os, strutils]
-import std/re
-import std/strformat
-# nim c ./glyph_data/gen.nim
-# ./glyph_data/gen
+import std/[os, strutils, re, strformat]
 
 proc popFirstLine(content: var string): string =
   let idx = content.find('\n')
@@ -54,4 +50,9 @@ proc get_svg*(svg_name: string): string =
 
   return content
 
-echo get_svg("pona")
+if paramCount() < 2:
+  quit("Error: Wrong parameter count")
+
+let svg_name = paramStr(1)
+
+echo get_svg(svg_name)
