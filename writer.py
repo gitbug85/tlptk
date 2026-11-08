@@ -49,8 +49,6 @@ def load_glyph(svg_path, x, y, cell_size):
     """Embed a glyph SVG inside the output SVG."""
     if not svg_path.is_file():
         raise FileNotFoundError(f"Glyph not found: {svg_path}")
-    if svg_path.suffix != ".tlptk":
-        sys.exit("Error: File should end in .tlptk")
 
     source = ET.parse(svg_path).getroot()
 
@@ -81,6 +79,7 @@ def draw(content: str, svg: ET.Element):
     w = args.w
 
     fragments = lex(content, "*& \n\t_[]'\"")
+    print(fragments)
 
     overlay_next = False
 
