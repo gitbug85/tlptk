@@ -44,13 +44,12 @@ proc get_svg*(svg_name: string): string =
       content = content & "</svg>"
   elif startsWith(first_line, "sewi"):
     content = content & "</svg>"
-    echo "sewi"
   else:
     quit("Error: No directional indicator in tlsvg")
 
   return content
 
-if paramCount() < 2:
+if paramCount() > 2:
   quit("Error: Wrong parameter count")
 
 let svg_name = paramStr(1)
