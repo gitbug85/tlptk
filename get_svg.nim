@@ -25,7 +25,7 @@ proc get_svg*(svg_name: string): string =
     two_plus = true
 
   let glyph = individual_names[0]
-  let path = "./glyph_data" / (glyph & ".tlsvg")
+  let path = "./nasin_lukin_pi_sitelen_pi_telo_kule" / (glyph & ".tlsvg")
   var content = readFile(path)
   var first_line = popFirstLine(content)
 
@@ -33,7 +33,6 @@ proc get_svg*(svg_name: string): string =
     first_line = first_line[4..^1]
     var ratio = parseFloat(first_line[0..2])
     first_line = first_line[3..^1]
-    echo first_line
     var x_center = first_line[0..1]
     first_line = first_line[2..^1]
     var y_center = first_line[0..1]
@@ -41,12 +40,12 @@ proc get_svg*(svg_name: string): string =
 
     if two_plus:
        let glyph_2 = individual_names[1]
-       let path_2 = "./glyph_data" / (glyph_2 & ".tlsvg")
+       let path_2 = "./nasin_lukin_pi_sitelen_pi_telo_kule" / (glyph_2 & ".tlsvg")
        var content_2 = readFile(path_2) & "</svg>"
        discard popFirstLine(content_2)
        content = content & fmt"""<svg x="{x_center}" y="{y_center}" height="{int(ratio*100)}" width="{int(ratio*100)}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">""" & content_2 & "</svg>" & "</svg>"
     else:
-      quit("Error: Using insa keyword without two plus glyphs")
+      content = content & "</svg>"
   elif startsWith(first_line, "sewi"):
     content = content & "</svg>"
     echo "sewi"
@@ -55,4 +54,4 @@ proc get_svg*(svg_name: string): string =
 
   return content
 
-echo get_svg("toki&toki")
+echo get_svg("pona")

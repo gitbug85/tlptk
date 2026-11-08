@@ -1,2 +1,0 @@
-So you take a shape.
-Then you use the second svg to set the dimentions for the inner shape.

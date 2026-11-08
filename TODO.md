@@ -27,7 +27,12 @@ Generally Add:
  - X Split syntax into a seperate file
  - X Change the ui to look better
  - nvm too hard apparently -> Add autocomplete
- - Add Nim file to transform text file into svg
+ - X Add Nim file to transform text file into svg
+ - X Move get_svg.nim up a directory
+
+Possibly add: (Put it into generally add when you want to. These are ideas)
+ - Keyword rotate for when a glyph should be rotated when stacked or nested
+ - Functionality to stack glyphs
 
 Do NOT Add:
  - ANY of the u words (pu, ku, etc...)

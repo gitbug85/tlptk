@@ -4,4 +4,4 @@ __pycache__
 target
 Cargo.lock
 /target
-/glyph_data/gen
+/get_svg
