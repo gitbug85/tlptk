@@ -3,6 +3,7 @@ def lex(content: str, characters: str) -> list[str]:
     kulupu_nimi = seperate(content, characters)
     kulupu_nimi = postfix_asterisk(kulupu_nimi)
     kulupu_nimi = assign_poki_nimi_glyphs(kulupu_nimi)
+    kulupu_nimi = sitelen_lasina(kulupu_nimi)
     kulupu_nimi = replace_quotes(kulupu_nimi)
     return kulupu_nimi
 
@@ -87,6 +88,26 @@ def replace_quotes(kulupu_nimi):
             else:
                 kulupu_nimi_sin.append("te")
                 in_quote = True
+        else:
+            kulupu_nimi_sin.append(nimi)
+    return kulupu_nimi_sin
+
+def sitelen_lasina(kulupu_nimi):
+    kulupu_nimi_sin = []
+    in_sitelen_lasina = False
+
+    for nimi in kulupu_nimi:
+        if nimi == "'":
+            if in_sitelen_lasina == False:
+                in_sitelen_lasina = True
+            else:
+                in_sitelen_lasina = False
+        elif in_sitelen_lasina:
+            for char in nimi:
+                if char == " ":
+                    kulupu_nimi_sin.append("_")
+                else:
+                    kulupu_nimi_sin.append("letter-" + char)
         else:
             kulupu_nimi_sin.append(nimi)
     return kulupu_nimi_sin
