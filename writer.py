@@ -5,9 +5,9 @@ import argparse
 from pathlib import Path
 import xml.etree.ElementTree as ET
 from lexer import lex
+import subprocess
 
 parser = argparse.ArgumentParser(description="Tool to write TLPTK SVGs")
-parser.add_argument("-w", type=int, required=True, help="suli pi sitelen wan (glyph cell size)")
 parser.add_argument("-n", type=str, required=False, help="nasin lon pi ilo sona (path)")
 parser.add_argument("-p", type=int, required=True, help="suli tawa poka (SVG width)")
 parser.add_argument("-s", type=int, required=True, help="suli (SVG height)")
@@ -18,7 +18,6 @@ SVG_NS = "http://www.w3.org/2000/svg"
 ET.register_namespace("", SVG_NS)
 
 GLYPH_DIR = Path("./sitelen_wan")
-GLYPH_SPACING = -0.5*args.w
 
 def tag(name):
     return f"{{{SVG_NS}}}{name}"
@@ -76,15 +75,9 @@ def draw(content: str, svg: ET.Element):
     """Lay out glyphs, spaces, and lines in the output SVG."""
     x = 0
     y = 0
-    w = args.w
 
     fragments = lex(content, "*& \n\t_[]'\"")
     print(fragments)
-
-    overlay_next = False
-
-    prev_x = None
-    prev_y = None
 
     for frag in fragments:
         if frag == "":
@@ -92,48 +85,45 @@ def draw(content: str, svg: ET.Element):
 
         if frag == "\n":
             x = 0
-            y += w
-            prev_x = None
-            prev_y = None
+            y += 100
             continue
 
-        if frag in ("\r", "\t", "\v", "\f"):
-            if frag == "\t":
-                x += 4 * w
-            continue
+        command = ["./get_svg", frag]
 
-        if frag == "&":
-            overlay_next = True
-            continue
+        try:
+            result = subprocess.run(
+                command,
+                capture_output=True,
+                text=True,
+                check=True
+            )
 
-        # If the previous fragment was &, overlay this glyph
-        # on the previous glyph instead of advancing.
-        if prev_x is not None and prev_y is not None and overlay_next:
-            glyph_path = GLYPH_DIR / f"{frag}.svg"
-            glyph = load_glyph(glyph_path, prev_x, prev_y, w)
+            glyph = ET.fromstring(result.stdout)
+            glyph.set("transform", f"translate({x}, {y})")
             svg.append(glyph)
-            overlay_next = False
-            continue
 
-        glyph_path = GLYPH_DIR / f"{frag}.svg"
-        glyph = load_glyph(glyph_path, x, y, w)
-        svg.append(glyph)
+            x += 100
 
-        prev_x, prev_y = x, y
-        x += w + GLYPH_SPACING
-        overlay_next = False
+        except subprocess.CalledProcessError as e:
+            print(f"Binary failed with exit code {e.returncode}")
+            print("Error output:", e.stderr)
+
+        except FileNotFoundError:
+            print("Error: The specified binary could not be found.")
 
 
 def interpret():
     if not (args.n or args.o):
         parser.error("Must provide either path or input text using -n or -o respectively")
-    if min(args.w, args.p, args.s) <= 0:
+    if min(args.p, args.s) <= 0:
         parser.error("-w, -p, and -s must be positive integers")
 
     try:
         if args.o:
             content = args.o
         else:
+            if Path(args.n).suffix != ".tlptk":
+                sys.exit("Error: File should end in .tlptk")
             content = Path(args.n).read_text(encoding="utf-8")
     except OSError as exc:
         parser.error(f"Cannot read input file: {exc}")

@@ -1,8 +1,4 @@
-import std/[os, strutils]
-import std/re
-import std/strformat
-# nim c ./glyph_data/gen.nim
-# ./glyph_data/gen
+import std/[os, strutils, re, strformat]
 
 proc popFirstLine(content: var string): string =
   let idx = content.find('\n')
@@ -48,10 +44,14 @@ proc get_svg*(svg_name: string): string =
       content = content & "</svg>"
   elif startsWith(first_line, "sewi"):
     content = content & "</svg>"
-    echo "sewi"
   else:
     quit("Error: No directional indicator in tlsvg")
 
   return content
 
-echo get_svg("pona")
+if paramCount() > 2:
+  quit("Error: Wrong parameter count")
+
+let svg_name = paramStr(1)
+
+echo get_svg(svg_name)
