@@ -5,6 +5,7 @@ def lex(content: str, characters: str) -> list[str]:
     kulupu_nimi = assign_poki_nimi_glyphs(kulupu_nimi)
     kulupu_nimi = sitelen_lasina(kulupu_nimi)
     kulupu_nimi = replace_quotes(kulupu_nimi)
+    kulupu_nimi = join_with_ampersand(kulupu_nimi)
     return kulupu_nimi
 
 # Seperate content by the characters listed while discarding spaces
@@ -110,4 +111,18 @@ def sitelen_lasina(kulupu_nimi):
                     kulupu_nimi_sin.append("letter-" + char)
         else:
             kulupu_nimi_sin.append(nimi)
+    return kulupu_nimi_sin
+
+def join_with_ampersand(kulupu_nimi):
+    kulupu_nimi_sin = []
+    i = 0
+
+    while i < len(kulupu_nimi):
+        if i + 2 < len(kulupu_nimi) and kulupu_nimi[i + 1] == "&":
+            kulupu_nimi_sin.append(kulupu_nimi[i] + "&" + kulupu_nimi[i + 2])
+            i += 3
+        else:
+            kulupu_nimi_sin.append(kulupu_nimi[i])
+            i += 1
+
     return kulupu_nimi_sin
