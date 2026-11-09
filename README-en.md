@@ -1,4 +1,5 @@
 # toki lukin pi telo kule
+[sina lukin e sitelen pi toki pona](./README.md)
 
 ![video](./demo.gif)
 

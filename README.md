@@ -1,4 +1,5 @@
 # toki lukin pi telo kule
+[Read in English](./README-en.md)
 
 ![video](./demo.gif)
 
