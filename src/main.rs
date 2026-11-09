@@ -19,7 +19,6 @@ fn main() -> eframe::Result<()> {
 #[derive(Default)]
 struct MyApp {
     content: String,
-    glyph_size: i32,
     svg_width: i32,
     svg_height: i32,
     python_result: String,
@@ -41,8 +40,6 @@ impl MyApp {
 
                 let py_args = vec![
                     "writer.py".to_string(),
-                    "-w".to_string(),
-                    self.glyph_size.to_string(),
                     "-o".to_string(),
                     self.content.clone(),
                     "-p".to_string(),
@@ -85,11 +82,6 @@ impl eframe::App for MyApp {
             ui.heading("lon SVG li te ./test/output.svg to");
 
             ui.horizontal(|ui| {
-                ui.label("suli pi sitelen wan:");
-                should_update |= ui
-                    .add(egui::Slider::new(&mut self.glyph_size, 1..=200).show_value(true))
-                    .changed();
-
                 ui.label("suli tawa poka:");
                 should_update |= ui
                     .add(egui::Slider::new(&mut self.svg_width, 1..=2000).show_value(true))
