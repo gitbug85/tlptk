@@ -82,15 +82,13 @@ def draw(content: str, svg: ET.Element):
     for frag in fragments:
         if frag == "":
             continue
-
-        if frag == "\n":
+        elif frag == "\n":
             x = 0
             y += 100
             continue
-
-        command = ["./get_svg", frag]
-
         try:
+            command = ["./get_svg", frag]
+
             result = subprocess.run(
                 command,
                 capture_output=True,
@@ -102,7 +100,8 @@ def draw(content: str, svg: ET.Element):
             glyph.set("transform", f"translate({x}, {y})")
             svg.append(glyph)
 
-            x += 100
+            x += 110
+            print(x)
 
         except subprocess.CalledProcessError as e:
             print(f"Binary failed with exit code {e.returncode}")

@@ -33,6 +33,8 @@ Possibly add: (Put it into generally add when you want to. These are ideas)
  - Keyword rotate for when a glyph should be rotated when stacked or nested
  - Functionality to stack glyphs
  - Add autocomplete
+ - There is like a rendering problem or something where it shows spaces between glyphs. (Seems like a resizing issue?? Output is the same)
+ - Edventually replace the direct insertion of glyphs with overlays of another font which is just smaller (it could also be used for subscript and superscript)
 
 Do NOT Add:
  - ANY of the u words (pu, ku, etc...)
