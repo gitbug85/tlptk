@@ -1,0 +1,11 @@
+sewi
+<svg height="100" width="100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <line x1="5" y1="0" x2="5" y2="100" stroke="black" stroke-width="10" />
+<ellipse cx="0" cy="0" rx="95" ry="50"
+          fill="none"
+          stroke="black"
+          stroke-width="10"/>
+<ellipse cx="0" cy="100" rx="95" ry="50"
+          fill="none"
+          stroke="black"
+          stroke-width="10"/>

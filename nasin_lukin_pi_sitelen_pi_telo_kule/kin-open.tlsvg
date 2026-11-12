@@ -1,0 +1,7 @@
+sewi
+<svg height="100" width="100" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<line x1="0" y1="80" x2="40" y2="80" stroke="black" stroke-width="10" />
+  <line x1="20" y1="60" x2="20" y2="100" stroke="black" stroke-width="10" />
+<line x1="5" y1="65" x2="35" y2="95" stroke="black" stroke-width="10" />
+<line x1="5" y1="95" x2="35" y2="65" stroke="black" stroke-width="10" />
+  <line x1="20" y1="0" x2="20" y2="55" stroke="black" stroke-width="10" />

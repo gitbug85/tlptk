@@ -47,4 +47,4 @@ Run "```python3 convert.py --help```"\
 
 The input path is the same as the ouput path.
 
-[syntax](./SYNTAX.md)
+[syntax](./SYNTAX-en.md)
