@@ -28,6 +28,7 @@ Generally Add:
  - X Change the ui to look better
  - X Add Nim file to transform text file into svg
  - X Move get_svg.nim up a directory
+ - X Work on pdf generation using Rusts printpdf library
 
 Possibly add: (Put it into generally add when you want to. These are ideas)
  - Keyword rotate for when a glyph should be rotated when stacked or nested

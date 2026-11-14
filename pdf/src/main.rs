@@ -3,17 +3,19 @@ use std::fs;
 
 fn main() {
     let mut doc = PdfDocument::new("My first PDF");
-    let font = BuiltinFont::Helvetica;
+    let font_bytes = include_bytes!("../ArchitectsDaughter-Regular.ttf");
+    let mut font_warnings = Vec::new();
+    let parsed_font = ParsedFont::from_bytes(font_bytes, 0, &mut font_warnings).unwrap();
+    let font_id = doc.add_font(&parsed_font);
     let page1_contents = vec![
         Op::StartTextSection,
         Op::SetTextCursor {
             pos: Point::new(Mm(20.0), Mm(270.0)),
         },
         Op::SetFont {
-            font: PdfFontHandle::Builtin(BuiltinFont::Helvetica),
+            font: PdfFontHandle::External(font_id),
             size: Pt(24.0),
         },
-        // Write the text
         Op::ShowText {
             items: vec![TextItem::Text("Hello, world!".to_string())],
         },
