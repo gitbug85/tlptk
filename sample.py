@@ -1,7 +1,6 @@
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
-SPACE = -40
 folder_path = Path("./sitelen_wan")
 output_path = folder_path / "sample.svg"
 
@@ -57,13 +56,11 @@ for file in files:
 
         group.append(child)
 
-    total_width += width + SPACE
+    total_width += width
     max_height = max(max_height, height)
 
 if not files:
     raise ValueError("No SVG files found.")
-
-total_width -= SPACE
 
 sampled.set("width", str(total_width))
 sampled.set("height", str(max_height))
