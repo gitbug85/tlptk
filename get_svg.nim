@@ -1,4 +1,4 @@
-import std/[os, strutils, re, strformat]
+import std/[os, strutils, re, strformat, xmlparser, xmltree, strtabs]
 
 proc popFirstLine(content: var string): string =
   let idx = content.find('\n')
@@ -21,33 +21,20 @@ proc get_svg*(svg_name: string): string =
     two_plus = true
 
   let glyph = individual_names[0]
-  let path = "./nasin_lukin_pi_sitelen_pi_telo_kule" / (glyph & ".tlsvg")
+  let path = "./sitelen_wan" / (glyph & ".svg")
   var content = readFile(path)
-  var first_line = popFirstLine(content)
+  discard popFirstLine(content)
+  let root = parseXml(content)
 
-  if startsWith(first_line, "insa"):
-    first_line = first_line[4..^1]
-    var ratio = parseFloat(first_line[0..2])
-    first_line = first_line[3..^1]
-    var x_center = first_line[0..1]
-    first_line = first_line[2..^1]
-    var y_center = first_line[0..1]
-    first_line = first_line[2..^1]
+  if root.attrs.isNil:
+    root.attrs = newStringTable()
 
-    if two_plus:
-       let glyph_2 = individual_names[1]
-       let path_2 = "./nasin_lukin_pi_sitelen_pi_telo_kule" / (glyph_2 & ".tlsvg")
-       var content_2 = readFile(path_2) & "</svg>"
-       discard popFirstLine(content_2)
-       content = content & fmt"""<svg x="{x_center}" y="{y_center}" height="{int(ratio*100)}" width="{int(ratio*100)}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">""" & content_2 & "</svg>" & "</svg>"
-    else:
-      content = content & "</svg>"
-  elif startsWith(first_line, "sewi"):
-    content = content & "</svg>"
-  else:
-    quit("Error: No directional indicator in tlsvg")
+  root.attrs["width"] = "210"
+  root.attrs["height"] = "297"
+  root.attrs["viewBox"] = "0 0 210 297"
+  root.attrs["preserveAspectRatio"] = "none"
 
-  return content
+  return $root
 
 if paramCount() > 2:
   quit("Error: Wrong parameter count")
