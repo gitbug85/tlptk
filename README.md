@@ -1,7 +1,7 @@
 # toki lukin pi telo kule
-[Read in English](./README-en.md)
+[Read in English](./assets/markdown/README-en.md)
 
-![video](./demo.gif)
+![video](./assets/demo.gif)
 
 ilo ni li pali e SVG pi sitelen pona.\
 nasin lawa en nasin sitelen pi ilo ni li lon anpa.
@@ -29,7 +29,7 @@ ilo kulupu pi ilo sona li jo e ilo te ```tlptk``` to.\
 o open kepeken te ```./tlptk``` to.\
 ilo ni li pali sin pi jan ala e lipu SVG. sina pini la sina luka lili e te ```X``` to.
 
-![ui](./ui.png)
+![ui](./assets/ui.png)
 
 pana weka: ```tlptk/project/test/output.svg```
 
@@ -47,4 +47,4 @@ o open te ```python3 convert.py --help``` to.\
 
 nasin lon pi ilo sona pi pana open li sama e pana weka.
 
-[nasin sitelen](./SYNTAX.md)
+[nasin sitelen](./assets/markdown/SYNTAX.md)

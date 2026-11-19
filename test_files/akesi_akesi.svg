@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='utf-8'?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="8000" height="1000" viewBox="0 0 8000 1000"><rect x="0" y="0" width="100%" height="100%" fill="#FFFFFF" /><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(0, 0)">
+<mask id="stroke-cutout-letter-j" maskUnits="userSpaceOnUse" x="20" y="65" width="40" height="40">
+  <rect x="20" y="65" width="40" height="40" fill="white" />
+  <rect x="20" y="0" width="40" height="85" fill="black" />
+</mask>
+  <line x1="50" y1="18" x2="50" y2="85" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="8" r="8" fill="black" />
+<circle cx="40" cy="85" r="10" fill="none" stroke="black" stroke-width="10" mask="url(#stroke-cutout-letter-j)" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(110, 0)">
+  <line x1="95" y1="50" x2="95" y2="100" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(220, 0)">
+<mask id="stroke-cutout-letter-n" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+  <rect x="0" y="0" width="100" height="100" fill="white" />
+  <rect x="0" y="50" width="100" height="100" fill="black" />
+</mask>
+<line x1="5" y1="0" x2="5" y2="100" stroke="black" stroke-width="10" />
+<line x1="95" y1="50" x2="95" y2="100" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" mask="url(#stroke-cutout-letter-n)" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(330, 0)">
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(440, 0)">
+  <line x1="95" y1="50" x2="95" y2="100" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(550, 0)">
+  <line x1="5" y1="0" x2="5" y2="100" stroke="black" stroke-width="10" />
+<ellipse cx="0" cy="0" rx="95" ry="50" fill="none" stroke="black" stroke-width="10" />
+<ellipse cx="0" cy="100" rx="95" ry="50" fill="none" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(660, 0)">
+<defs>
+    <mask id="stroke-cutout-letter-e">
+      <rect width="100%" height="100%" fill="white" />
+
+      <rect x="50" y="50" width="100" height="10" rx="15" ry="15" fill="black" />
+    </mask>
+  </defs>
+  <line x1="10" y1="45" x2="90" y2="45" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" mask="url(#stroke-cutout-letter-e)" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(770, 0)">
+<ellipse cx="105" cy="30" rx="100" ry="25" fill="none" stroke="black" stroke-width="10" />
+<ellipse cx="-5" cy="70" rx="100" ry="25" fill="none" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(880, 0)">
+  <line x1="50" y1="50" x2="50" y2="100" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="40" r="8" fill="black" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(990, 0)">
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(1100, 0)">
+<mask id="stroke-cutout-letter-l" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+  <rect x="0" y="0" width="100" height="100" fill="white" />
+  <rect x="0" y="0" width="100" height="85" fill="black" />
+</mask>
+  <line x1="50" y1="0" x2="50" y2="85" stroke="black" stroke-width="10" />
+<circle cx="60" cy="85" r="10" fill="none" stroke="black" stroke-width="10" mask="url(#stroke-cutout-letter-l)" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(1210, 0)">
+  <line x1="50" y1="50" x2="50" y2="100" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="40" r="8" fill="black" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(1320, 0)">
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(1430, 0)">
+<line x1="50" y1="0" x2="50" y2="100" stroke="black" stroke-width="10" />
+<line x1="0" y1="33" x2="100" y2="33" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(1540, 0)">
+
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(1650, 0)">
+  <line x1="5" y1="0" x2="5" y2="100" stroke="black" stroke-width="10" />
+<ellipse cx="0" cy="0" rx="95" ry="50" fill="none" stroke="black" stroke-width="10" />
+<ellipse cx="0" cy="100" rx="95" ry="50" fill="none" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(1760, 0)">
+  <line x1="50" y1="50" x2="50" y2="100" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="40" r="8" fill="black" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(1870, 0)">
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(1980, 0)">
+<defs>
+    <mask id="stroke-cutout-letter-e">
+      <rect width="100%" height="100%" fill="white" />
+
+      <rect x="50" y="50" width="100" height="10" rx="15" ry="15" fill="black" />
+    </mask>
+  </defs>
+  <line x1="10" y1="45" x2="90" y2="45" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" mask="url(#stroke-cutout-letter-e)" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(2090, 0)">
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(2200, 0)">
+<mask id="stroke-cutout-letter-n" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+  <rect x="0" y="0" width="100" height="100" fill="white" />
+  <rect x="0" y="50" width="100" height="100" fill="black" />
+</mask>
+<line x1="5" y1="0" x2="5" y2="100" stroke="black" stroke-width="10" />
+<line x1="95" y1="50" x2="95" y2="100" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" mask="url(#stroke-cutout-letter-n)" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(2310, 0)">
+  <line x1="50" y1="50" x2="50" y2="100" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="40" r="8" fill="black" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(2420, 0)">
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(2530, 0)">
+<line x1="50" y1="0" x2="50" y2="100" stroke="black" stroke-width="10" />
+<line x1="0" y1="33" x2="100" y2="33" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(2640, 0)">
+<defs>
+    <mask id="stroke-cutout-letter-e">
+      <rect width="100%" height="100%" fill="white" />
+
+      <rect x="50" y="50" width="100" height="10" rx="15" ry="15" fill="black" />
+    </mask>
+  </defs>
+  <line x1="10" y1="45" x2="90" y2="45" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" mask="url(#stroke-cutout-letter-e)" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(2750, 0)">
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(2860, 0)">
+<line x1="50" y1="0" x2="50" y2="100" stroke="black" stroke-width="10" />
+<line x1="0" y1="33" x2="100" y2="33" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(2970, 0)">
+<defs>
+    <mask id="stroke-cutout-letter-e">
+      <rect width="100%" height="100%" fill="white" />
+
+      <rect x="50" y="50" width="100" height="10" rx="15" ry="15" fill="black" />
+    </mask>
+  </defs>
+  <line x1="10" y1="45" x2="90" y2="45" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" mask="url(#stroke-cutout-letter-e)" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(3080, 0)">
+<mask id="stroke-cutout-letter-n" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+  <rect x="0" y="0" width="100" height="100" fill="white" />
+  <rect x="0" y="50" width="100" height="100" fill="black" />
+</mask>
+<line x1="5" y1="0" x2="5" y2="100" stroke="black" stroke-width="10" />
+<line x1="95" y1="50" x2="95" y2="100" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" mask="url(#stroke-cutout-letter-n)" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(3190, 0)">
+
+  <line x1="50" y1="0" x2="50" y2="100" stroke="black" stroke-width="10" />
+<circle cx="60" cy="15" r="10" fill="none" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(3300, 0)">
+
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(3410, 0)">
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(3520, 0)">
+
+  <line x1="50" y1="0" x2="50" y2="100" stroke="black" stroke-width="10" />
+<circle cx="60" cy="15" r="10" fill="none" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(3630, 0)">
+
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(3740, 0)">
+<mask id="stroke-cutout-letter-n" maskUnits="userSpaceOnUse" x="0" y="0" width="100" height="100">
+  <rect x="0" y="0" width="100" height="100" fill="white" />
+  <rect x="0" y="50" width="100" height="100" fill="black" />
+</mask>
+<line x1="5" y1="0" x2="5" y2="100" stroke="black" stroke-width="10" />
+<line x1="95" y1="50" x2="95" y2="100" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" mask="url(#stroke-cutout-letter-n)" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(3850, 0)">
+  <line x1="95" y1="50" x2="95" y2="100" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(3960, 0)">
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(4070, 0)">
+  <line x1="95" y1="50" x2="95" y2="100" stroke="black" stroke-width="10" />
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(4180, 0)">
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(4290, 0)">
+<line x1="50" y1="0" x2="50" y2="100" stroke="black" stroke-width="10" />
+<line x1="0" y1="33" x2="100" y2="33" stroke="black" stroke-width="10" />
+</svg><svg height="100" width="100" viewBox="0 0 100 100" transform="translate(4400, 0)">
+
+  <circle cx="50" cy="50" r="45" fill="none" stroke="black" stroke-width="10" />
+</svg></svg>
