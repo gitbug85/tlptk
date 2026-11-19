@@ -30,7 +30,7 @@ Generally Add:
  - X Move get_svg.nim up a directory
  - X Work on pdf generation using Rusts printpdf library
  - X Fix glyph sizing issue
- - Get writer.py to call binary from pdf library
+ - X Get writer.py to call binary from pdf library
  - Get sitelen lasina from writer over to pdf to write
 
 Possibly add: (Put it into generally add when you want to. These are ideas)

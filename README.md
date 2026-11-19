@@ -38,7 +38,7 @@ lipu sin SVG li weka e lipu majuna SVG.
 ### nasin lawa
 
 o open te ```python3 writer.py --help``` to.\
-```python3 writer.py -w 200 -n './test/sin.tlptk' -p 1400 -s 600```
+```python3 writer.py -n './test/sin.tlptk' -p 1400 -s 600```
 
 sina wile ante e sitelen lukin. sina kepeken te ```sudo apt install inkscape``` to.
 
