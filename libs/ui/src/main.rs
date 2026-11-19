@@ -21,58 +21,8 @@ struct MyApp {
     content: String,
     svg_width: i32,
     svg_height: i32,
-    python_result: String,
     svg_bytes: Vec<u8>,
     svg_version: u64,
-}
-
-impl MyApp {
-    fn update_python_result(&mut self) {
-        self.python_result = Python::with_gil(|py| {
-            let result = (|| -> PyResult<String> {
-                let sys = PyModule::import(py, "sys")?;
-
-                let cwd = std::env::current_dir()
-                    .map_err(|e| pyo3::exceptions::PyRuntimeError::new_err(e.to_string()))?;
-
-                sys.getattr("path")?
-                    .call_method1("insert", (0, cwd.to_string_lossy().to_string()))?;
-
-                let py_args = vec![
-                    "writer.py".to_string(),
-                    "-o".to_string(),
-                    self.content.clone(),
-                    "-p".to_string(),
-                    self.svg_width.to_string(),
-                    "-s".to_string(),
-                    self.svg_height.to_string(),
-                ];
-
-                let sys_argv = sys.getattr("argv")?;
-                sys_argv.call_method0("clear")?;
-
-                for arg in &py_args {
-                    sys_argv.call_method1("append", (arg,))?;
-                }
-
-                let importlib = PyModule::import(py, "importlib")?;
-                let module = PyModule::import(py, "writer")?;
-                let module = importlib.call_method1("reload", (module,))?;
-
-                let result = module.getattr("main")?.call0()?;
-
-                match result.extract::<String>() {
-                    Ok(value) => Ok(value),
-                    Err(_) => Ok("Python script executed successfully".to_string()),
-                }
-            })();
-
-            match result {
-                Ok(value) => value,
-                Err(err) => format!("Error: {}", err),
-            }
-        });
-    }
 }
 
 impl eframe::App for MyApp {
@@ -114,34 +64,10 @@ impl eframe::App for MyApp {
                                 )
                                 .changed();
                         });
-
-                        if should_update {
-                            self.update_python_result();
-
-                            if self.python_result.trim_start().starts_with("<svg") {
-                                self.svg_bytes = self.python_result.as_bytes().to_vec();
-                                self.svg_version += 1;
-                            }
-                        }
                     },
                 );
 
                 ui.separator();
-
-                ui.allocate_ui_with_layout(
-                    egui::vec2(column_width, ui.available_height()),
-                    egui::Layout::top_down(egui::Align::Min),
-                    |ui| {
-                        ui.heading("pana weka:");
-
-                        let uri = format!("bytes://python_output_{}.svg", self.svg_version);
-
-                        ui.add(
-                            egui::Image::from_bytes(uri, self.svg_bytes.clone())
-                                .fit_to_exact_size(egui::vec2(column_width, column_width)),
-                        );
-                    },
-                );
             });
         });
     }

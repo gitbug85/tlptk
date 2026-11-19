@@ -40,6 +40,8 @@ Possibly add: (Put it into generally add when you want to. These are ideas)
  - Add autocomplete
  - There is like a rendering problem or something where it shows spaces between glyphs. (Seems like a resizing issue?? Output is the same)
  - Edventually replace the direct insertion of glyphs with overlays of another font which is just smaller (it could also be used for subscript and superscript)
+ - While writing sitelen pona show sitelen lasina with yellow highlight to show it's unfinished
+ - When typing command to rebuild can add an option to only rebuild certain binaries
 
 Do NOT Add:
  - ANY of the u words (pu, ku, etc...)

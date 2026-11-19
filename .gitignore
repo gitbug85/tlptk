@@ -4,5 +4,6 @@ __pycache__
 target
 Cargo.lock
 /target
-/get_svg
 /bin/pdf
+/bin/get_svg
+/bin/ui
