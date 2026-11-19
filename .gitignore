@@ -5,3 +5,4 @@ target
 Cargo.lock
 /target
 /get_svg
+/bin/pdf

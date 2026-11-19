@@ -1,6 +1,37 @@
 use printpdf::*;
 use std::fs;
 
+enum TextElement {
+    Text(String),
+    Glyph { content: String },
+}
+
+// let elements = vec![
+//     TextElement::Text("Hello ".to_string()),
+//     TextElement::Svg {
+//         path: "pona.svg".to_string(),
+//         width: 12.0,
+//         height: 12.0,
+//     },
+//     TextElement::Text(" World".to_string()),
+// ];
+
+// let svg = Svg::parse(&svg, &mut warnings).unwrap();
+// let xobject_id = doc.add_xobject(&svg);
+//
+// let operations = vec![
+//     Op::UseXobject {
+//         id: xobject_id,
+//         transform: XObjectTransform {
+//             translate_x: Some(Mm(20.0).into()), <- This stuff is just x and y
+//             translate_y: Some(Mm(200.0).into()),
+//             scale_x: Some(1.0), <- This scales it
+//             scale_y: Some(1.0),
+//             ..Default::default()
+//         },
+//     },
+// ];
+
 fn main() {
     let mut doc = PdfDocument::new("My first PDF");
     let font_bytes = include_bytes!("../ArchitectsDaughter-Regular.ttf");

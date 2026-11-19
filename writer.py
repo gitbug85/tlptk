@@ -110,6 +110,8 @@ def draw(content: str, svg: ET.Element):
         except FileNotFoundError:
             print("Error: The specified binary could not be found.")
 
+def write_to_pdf():
+    pass
 
 def interpret():
     if not (args.n or args.o):
