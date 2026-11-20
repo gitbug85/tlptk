@@ -1,6 +1,5 @@
 use eframe::egui;
-use pyo3::prelude::*;
-use pyo3::types::PyModule;
+use rfd::FileDialog;
 
 fn main() -> eframe::Result<()> {
     let options = eframe::NativeOptions::default();
@@ -19,10 +18,7 @@ fn main() -> eframe::Result<()> {
 #[derive(Default)]
 struct MyApp {
     content: String,
-    svg_width: i32,
-    svg_height: i32,
-    svg_bytes: Vec<u8>,
-    svg_version: u64,
+    path: String,
 }
 
 impl eframe::App for MyApp {
@@ -32,15 +28,11 @@ impl eframe::App for MyApp {
             ui.heading("lon SVG li te ./test/output.svg to");
 
             ui.horizontal(|ui| {
-                ui.label("suli tawa poka:");
-                should_update |= ui
-                    .add(egui::Slider::new(&mut self.svg_width, 1..=2000).show_value(true))
-                    .changed();
-
-                ui.label("suli:");
-                should_update |= ui
-                    .add(egui::Slider::new(&mut self.svg_height, 1..=2000).show_value(true))
-                    .changed();
+                ui.label("nasin lon pi ilo sona:");
+                ui.add_sized(
+                    [200.0, ui.spacing().interact_size.y],
+                    egui::TextEdit::singleline(&mut self.path),
+                );
             });
 
             ui.separator();

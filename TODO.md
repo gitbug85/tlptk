@@ -31,7 +31,8 @@ Generally Add:
  - X Work on pdf generation using Rusts printpdf library
  - X Fix glyph sizing issue
  - X Get writer.py to call binary from pdf library
- - Organize via libs folder
+ - X Organize via libs folder
+ - Make c++ lib to take pdf path, make a internal pdf interpretation, turn that into a jpeg before handing that back to the program that ran it
  - Get sitelen lasina from writer over to pdf to write
 
 Possibly add: (Put it into generally add when you want to. These are ideas)
