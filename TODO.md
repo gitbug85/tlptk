@@ -32,6 +32,7 @@ Generally Add:
  - X Fix glyph sizing issue
  - X Get writer.py to call binary from pdf library
  - X Organize via libs folder
+ - Install CMake
  - Make c++ lib to take pdf path, make a internal pdf interpretation, turn that into a jpeg before handing that back to the program that ran it
  - Get sitelen lasina from writer over to pdf to write
 
@@ -46,3 +47,10 @@ Possibly add: (Put it into generally add when you want to. These are ideas)
 
 Do NOT Add:
  - ANY of the u words (pu, ku, etc...)
+
+Dependencies yet to install in workflow:
+cmake   sudo apt install cmake
+g++   sudo apt install build-essential
+
+sudo apt install libpoppler-cpp-dev
+sudo apt install poppler-utils <- May not be useful

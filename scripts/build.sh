@@ -38,7 +38,8 @@ compile_ui() {
 }
 
 compile_render() {
-    g++ ./libs/render/main.cpp -o ./bin/render
+    g++ ./libs/render/main.cpp -o ./bin/render \
+        $(pkg-config --cflags --libs poppler-cpp)
 }
 
 if [[ "$INDIVIDUAL" == true ]]; then

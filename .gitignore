@@ -7,3 +7,4 @@ Cargo.lock
 /bin/pdf
 /bin/get_svg
 /bin/ui
+/bin/render
