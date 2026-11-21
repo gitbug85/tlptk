@@ -39,7 +39,8 @@ compile_ui() {
 
 compile_render() {
     g++ ./libs/render/main.cpp -o ./bin/render \
-        $(pkg-config --cflags --libs poppler-cpp)
+        $(pkg-config --cflags --libs poppler-cpp) \
+        -ljpeg
 }
 
 if [[ "$INDIVIDUAL" == true ]]; then
