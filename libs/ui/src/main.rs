@@ -1,5 +1,6 @@
 use eframe::egui;
 use rfd::FileDialog;
+use std::path::PathBuf;
 
 fn main() -> eframe::Result<()> {
     let options = eframe::NativeOptions::default();
@@ -18,21 +19,47 @@ fn main() -> eframe::Result<()> {
 #[derive(Default)]
 struct MyApp {
     content: String,
-    path: String,
+    path: Option<PathBuf>,
+    writing_sitelen_pona: bool,
 }
 
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             let mut should_update = false;
-            ui.heading("lon SVG li te ./test/output.svg to");
 
             ui.horizontal(|ui| {
-                ui.label("nasin lon pi ilo sona:");
-                ui.add_sized(
-                    [200.0, ui.spacing().interact_size.y],
-                    egui::TextEdit::singleline(&mut self.path),
-                );
+                let label = if !self.writing_sitelen_pona {
+                    "sitelen pona"
+                } else {
+                    "sitelen lasina"
+                };
+
+                let color = if self.writing_sitelen_pona {
+                    egui::Color32::default()
+                } else {
+                    egui::Color32::BLUE
+                };
+
+                if ui
+                    .selectable_label(
+                        self.writing_sitelen_pona,
+                        egui::RichText::new(label).background_color(color),
+                    )
+                    .clicked()
+                {
+                    self.writing_sitelen_pona = !self.writing_sitelen_pona;
+                }
+
+                if ui.button("nasin lon pi ilo sona: ").clicked() {
+                    if let Some(path) = rfd::FileDialog::new().pick_file() {
+                        self.path = Some(path);
+                    }
+                }
+
+                if let Some(path) = &self.path {
+                    ui.label(path.display().to_string());
+                }
             });
 
             ui.separator();

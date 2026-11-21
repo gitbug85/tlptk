@@ -43,12 +43,17 @@ compile_render() {
         -ljpeg
 }
 
+compile_tlptk() {
+    go build -C ./libs/tlptk -o ../../bin/tlptk
+}
+
 if [[ "$INDIVIDUAL" == true ]]; then
     case "$BINARY" in
         pdf)     compile_pdf ;;
         get_svg) compile_get_svg ;;
         ui)      compile_ui ;;
         render)  compile_render ;;
+        tlptk)  compile_tlptk ;;
         *)
             echo "Usage: $0 -i|--individual <pdf|get_svg|ui|render>"
             exit 1
@@ -59,4 +64,5 @@ else
     compile_get_svg
     compile_ui
     compile_render
+    compile_tlptk
 fi
