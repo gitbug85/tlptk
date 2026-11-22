@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+pdf = { version = "0.1.0", path = "../pdf" }
 eframe = "0.31"
 egui_extras = { version = "0.31", features = ["svg"] }
 rfd = "0.18.0"

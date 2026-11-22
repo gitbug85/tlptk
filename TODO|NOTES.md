@@ -49,9 +49,11 @@ Do NOT Add:
  - ANY of the u words (pu, ku, etc...)
 
 Dependencies yet to install in workflow:
-cmake   sudo apt install cmake
-g++   sudo apt install build-essential
-
+sudo apt install build-essential <- For g++
 sudo apt install libpoppler-cpp-dev
 sudo apt install poppler-utils <- May not be useful
 sudo apt install libjpeg-dev
+
+What happens when you type?
+Content string is passed to lexer, lexemes are passed to pdf binary to be saved via which function???
+ - Every something characters typed I should save a new temperary version and if the user does Ctrl S then we make the latest temperary version the one saved elsewhere

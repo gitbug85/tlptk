@@ -1,4 +1,5 @@
 use eframe::egui;
+use pdf::save_pdf;
 use rfd::FileDialog;
 use std::path::PathBuf;
 
@@ -58,6 +59,10 @@ impl eframe::App for MyApp {
                     .clicked()
                 {
                     self.writing_sitelen_pona = !self.writing_sitelen_pona;
+                }
+
+                if ui.button("o awen e pali").clicked() {
+                    save_pdf(self.path.clone(), &mut [])
                 }
 
                 ui.heading("suli pi PDF:");

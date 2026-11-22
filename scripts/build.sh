@@ -23,15 +23,6 @@ cleanup_rust() {
     rm ./bin/.rustc_info.json
 }
 
-compile_pdf() {
-    cargo build --manifest-path ./libs/pdf/Cargo.toml --target-dir ./bin
-    cleanup_rust pdf
-}
-
-compile_get_svg() {
-    nim c --outdir:bin ./libs/get_svg/main.nim
-}
-
 compile_ui() {
     cargo build --manifest-path ./libs/ui/Cargo.toml --target-dir ./bin
     cleanup_rust ui
@@ -44,12 +35,11 @@ compile_render() {
 }
 
 compile_lex() {
-    nim c --outdir:bin ./libs/lex/main.nim
+    nim c -o:./bin/get_svg/lex ./libs/lex/main.nim
 }
 
 if [[ "$INDIVIDUAL" == true ]]; then
     case "$BINARY" in
-        pdf)     compile_pdf ;;
         get_svg) compile_get_svg ;;
         ui)      compile_ui ;;
         render)  compile_render ;;
@@ -60,7 +50,6 @@ if [[ "$INDIVIDUAL" == true ]]; then
             ;;
     esac
 else
-    compile_pdf
     compile_get_svg
     compile_ui
     compile_render

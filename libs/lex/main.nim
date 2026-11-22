@@ -1,14 +1,5 @@
 import std/options
 
-proc lex(content: string, characters: string): seq[string] =
-  var kulupuNimi = seperate(content, characters)
-  kulupuNimi = postfixAsterisk(kulupuNimi)
-  kulupuNimi = assignPokiNimiGlyphs(kulupuNimi)
-  kulupuNimi = sitelenLasina(kulupuNimi)
-  kulupuNimi = replaceQuotes(kulupuNimi)
-  kulupuNimi = joinWithAmpersand(kulupuNimi)
-  return kulupuNimi
-
 # Separate content by the characters listed while discarding spaces
 # except when inside single quotes.
 proc seperate(content: string, characters: string): seq[string] =
@@ -37,7 +28,6 @@ proc seperate(content: string, characters: string): seq[string] =
 
   return kulupuNimi
 
-
 proc postfixAsterisk(kulupuNimi: seq[string]): seq[string] =
   var kulupuNimiSin: seq[string] = @[]
   var lastNimi = ""
@@ -52,7 +42,6 @@ proc postfixAsterisk(kulupuNimi: seq[string]): seq[string] =
       kulupuNimiSin.add(nimi)
 
   return kulupuNimiSin
-
 
 proc assignPokiNimiGlyphs(kulupuNimi: seq[string]): seq[string] =
   var kulupuNimiSin: seq[string] = @[]
@@ -83,7 +72,6 @@ proc assignPokiNimiGlyphs(kulupuNimi: seq[string]): seq[string] =
 
   return kulupuNimiSin
 
-
 proc replaceQuotes(kulupuNimi: seq[string]): seq[string] =
   var kulupuNimiSin: seq[string] = @[]
   var inQuote = false
@@ -100,7 +88,6 @@ proc replaceQuotes(kulupuNimi: seq[string]): seq[string] =
       kulupuNimiSin.add(nimi)
 
   return kulupuNimiSin
-
 
 proc sitelenLasina(kulupuNimi: seq[string]): seq[string] =
   var kulupuNimiSin: seq[string] = @[]
@@ -120,7 +107,6 @@ proc sitelenLasina(kulupuNimi: seq[string]): seq[string] =
 
   return kulupuNimiSin
 
-
 proc joinWithAmpersand(kulupuNimi: seq[string]): seq[string] =
   var kulupuNimiSin: seq[string] = @[]
   var i = 0
@@ -136,3 +122,12 @@ proc joinWithAmpersand(kulupuNimi: seq[string]): seq[string] =
       i += 1
 
   return kulupuNimiSin
+
+proc lex(content: string, characters: string): seq[string] =
+  var kulupuNimi = seperate(content, characters)
+  kulupuNimi = postfixAsterisk(kulupuNimi)
+  kulupuNimi = assignPokiNimiGlyphs(kulupuNimi)
+  kulupuNimi = sitelenLasina(kulupuNimi)
+  kulupuNimi = replaceQuotes(kulupuNimi)
+  kulupuNimi = joinWithAmpersand(kulupuNimi)
+  return kulupuNimi

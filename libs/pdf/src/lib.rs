@@ -1,5 +1,5 @@
 use printpdf::*;
-use std::fs;
+use std::{fs, path::PathBuf};
 
 enum TextElement {
     Text(String),
@@ -31,6 +31,11 @@ enum TextElement {
 //         },
 //     },
 // ];
+
+pub fn save_pdf(path: PathBuf, lexemes: &mut [String]) {
+    println!("Printing from save_pdf!");
+    // This function will save PDFs by interpreting lexemes and saving at the designated path
+}
 
 fn main() {
     let mut doc = PdfDocument::new("My first PDF");
