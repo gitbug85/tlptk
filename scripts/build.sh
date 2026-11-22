@@ -29,7 +29,7 @@ compile_pdf() {
 }
 
 compile_get_svg() {
-    nim c --outdir:bin ./libs/get_svg/get_svg.nim
+    nim c --outdir:bin ./libs/get_svg/main.nim
 }
 
 compile_ui() {
@@ -43,8 +43,8 @@ compile_render() {
         -ljpeg
 }
 
-compile_tlptk() {
-    go build -C ./libs/tlptk -o ../../bin/tlptk
+compile_lex() {
+    nim c --outdir:bin ./libs/lex/main.nim
 }
 
 if [[ "$INDIVIDUAL" == true ]]; then
@@ -53,7 +53,7 @@ if [[ "$INDIVIDUAL" == true ]]; then
         get_svg) compile_get_svg ;;
         ui)      compile_ui ;;
         render)  compile_render ;;
-        tlptk)  compile_tlptk ;;
+        lex)  compile_lex ;;
         *)
             echo "Usage: $0 -i|--individual <pdf|get_svg|ui|render>"
             exit 1
@@ -64,5 +64,5 @@ else
     compile_get_svg
     compile_ui
     compile_render
-    compile_tlptk
+    compile_lex
 fi
