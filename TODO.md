@@ -32,8 +32,8 @@ Generally Add:
  - X Fix glyph sizing issue
  - X Get writer.py to call binary from pdf library
  - X Organize via libs folder
- - Make c++ lib to take pdf path, make a internal pdf interpretation, turn that into a jpeg before handing that back to the program that ran it
- - Add which dimentions to use in render library
+ - X Make c++ lib to take pdf path, make a internal pdf interpretation, turn that into a jpeg before handing that back to the program that ran it
+ - X Add which page dimension selection
  - Get sitelen lasina from writer over to pdf to write
 
 Possibly add: (Put it into generally add when you want to. These are ideas)
