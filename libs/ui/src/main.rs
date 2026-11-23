@@ -3,7 +3,10 @@ use pdf::save_pdf;
 use rfd::FileDialog;
 use std::fmt;
 use std::fs;
+use std::os::unix::process::ExitStatusExt;
 use std::path::PathBuf;
+use std::process::ExitStatus;
+use std::process::Output;
 
 fn main() -> eframe::Result<()> {
     let options = eframe::NativeOptions::default();
@@ -19,13 +22,30 @@ fn main() -> eframe::Result<()> {
     )
 }
 
-#[derive(Default)]
 struct MyApp {
     content: String,
     pdf_path: PathBuf,
     writing_sitelen_pona: bool,
     selected: Dimensions,
     path: PathBuf,
+    render_output: Output,
+}
+
+impl Default for MyApp {
+    fn default() -> Self {
+        Self {
+            content: String::default(),
+            pdf_path: PathBuf::default(),
+            writing_sitelen_pona: false,
+            selected: Dimensions::default(),
+            path: PathBuf::default(),
+            render_output: Output {
+                status: ExitStatus::from_raw(0),
+                stdout: Vec::new(),
+                stderr: Vec::new(),
+            },
+        }
+    }
 }
 
 #[derive(PartialEq, Debug, Clone, Copy, Default)]
@@ -77,6 +97,7 @@ impl eframe::App for MyApp {
                 if ui.button("o awen e pali").clicked() {
                     fs::write(self.path.clone(), self.content.clone())
                         .expect("Could not write content.");
+                    should_update = true;
                     save_pdf(self.path.clone(), 600.0, 900.0)
                 }
 
@@ -134,56 +155,42 @@ impl eframe::App for MyApp {
                     |ui| {
                         ui.label("Preview:");
 
-                        let render_path = std::env::current_exe()
-                            .expect("Failed to get current executable path")
-                            .parent()
-                            .expect("Failed to get executable parent directory")
-                            .join("render");
+                        if should_update {
+                            let render_path = std::env::current_exe()
+                                .expect("Failed to get current executable path")
+                                .parent()
+                                .expect("Failed to get executable parent directory")
+                                .join("render");
 
-                        let output = std::process::Command::new(&render_path)
-                            .arg(&self.pdf_path)
-                            .arg(&self.selected.to_string())
-                            .output();
+                            self.render_output = std::process::Command::new(&render_path)
+                                .arg(&self.pdf_path)
+                                .arg(&self.selected.to_string())
+                                .output()
+                                .expect("Could not render output.");
+                        }
 
-                        match output {
-                            Ok(output) if output.status.success() => {
-                                match image::load_from_memory(&output.stdout) {
-                                    Ok(decoded) => {
-                                        let size =
-                                            [decoded.width() as usize, decoded.height() as usize];
+                        match image::load_from_memory(&self.render_output.stdout) {
+                            Ok(decoded) => {
+                                let size = [decoded.width() as usize, decoded.height() as usize];
 
-                                        let rgba = decoded.to_rgba8();
-                                        let pixels = rgba.as_flat_samples();
+                                let rgba = decoded.to_rgba8();
+                                let pixels = rgba.as_flat_samples();
 
-                                        let image = egui::ColorImage::from_rgba_unmultiplied(
-                                            size,
-                                            pixels.as_slice(),
-                                        );
+                                let image = egui::ColorImage::from_rgba_unmultiplied(
+                                    size,
+                                    pixels.as_slice(),
+                                );
 
-                                        let texture = ui.ctx().load_texture(
-                                            "render_preview",
-                                            image,
-                                            egui::TextureOptions::LINEAR,
-                                        );
+                                let texture = ui.ctx().load_texture(
+                                    "render_preview",
+                                    image,
+                                    egui::TextureOptions::LINEAR,
+                                );
 
-                                        ui.add(
-                                            egui::Image::new(&texture)
-                                                .max_size(ui.available_size()),
-                                        );
-                                    }
-                                    Err(err) => {
-                                        ui.label(format!("Failed to decode JPEG: {err}"));
-                                    }
-                                }
-                            }
-                            Ok(output) => {
-                                ui.label(format!(
-                                    "Render failed: {}",
-                                    String::from_utf8_lossy(&output.stderr)
-                                ));
+                                ui.add(egui::Image::new(&texture).max_size(ui.available_size()));
                             }
                             Err(err) => {
-                                ui.label(format!("Failed to execute render: {:?}", self.pdf_path));
+                                ui.label(format!("Failed to decode JPEG: {err}"));
                             }
                         }
                     },

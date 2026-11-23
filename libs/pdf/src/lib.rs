@@ -32,14 +32,14 @@ pub fn save_pdf(path: PathBuf, width: f32, height: f32) {
         .expect("Could not get parent of bin directory.")
         .join("sitelen_wan");
 
-    let mut x_pos = 50.0;
+    let mut x_pos = 60.0;
     let mut y_pos = 2409.45;
     let mut ops = vec![];
 
     for lexeme in &result {
         if lexeme == "\n" {
-            x_pos = 50.0;
-            y_pos += 100.0;
+            x_pos = 60.0;
+            y_pos -= 100.0;
             continue;
         }
 
@@ -65,7 +65,7 @@ pub fn save_pdf(path: PathBuf, width: f32, height: f32) {
             },
         };
         ops.push(op);
-        x_pos += 100.0;
+        x_pos += 60.0;
     }
 
     let page = PdfPage::new(Mm(width), Mm(height), ops);

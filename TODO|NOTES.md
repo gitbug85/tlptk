@@ -34,7 +34,8 @@ Generally Add:
  - X Organize via libs folder
  - X Make c++ lib to take pdf path, make a internal pdf interpretation, turn that into a jpeg before handing that back to the program that ran it
  - X Add which page dimension selection
- - Get sitelen lasina from writer over to pdf to write
+ - X Get sitelen lasina from writer over to pdf to write
+ - Reduce lag by reducing unnecessary calls to render library
 
 Possibly add: (Put it into generally add when you want to. These are ideas)
  - Keyword rotate for when a glyph should be rotated when stacked or nested
