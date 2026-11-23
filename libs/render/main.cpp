@@ -53,15 +53,16 @@ void print_jpeg(poppler::image& img)
 
 int main(int argc, char* argv[])
 {
-    if (argc < 2) {
-        std::cerr << "Need a PDF path argument.\n";
+    if (argc < 3) {
+        std::cerr << "Missing number of required arguments.\n";
         return 1;
     }
 
-    constexpr int WIDTH = 1920;
-    constexpr int HEIGHT = 1080;
-
     const std::string pdf_path = argv[1];
+    const std::string pdf_size_type = argv[2];
+
+    int WIDTH = 600;
+    int HEIGHT = 900;
 
     // Load the PDF.
     std::unique_ptr<poppler::document> doc(

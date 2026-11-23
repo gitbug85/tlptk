@@ -4,5 +4,5 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
-printpdf = "0.12.9"
+printpdf = { version = "0.12.9", features = ["svg"] }
 serde_json = "1"

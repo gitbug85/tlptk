@@ -1,6 +1,7 @@
 use eframe::egui;
 use pdf::save_pdf;
 use rfd::FileDialog;
+use std::fmt;
 use std::path::PathBuf;
 
 fn main() -> eframe::Result<()> {
@@ -20,9 +21,10 @@ fn main() -> eframe::Result<()> {
 #[derive(Default)]
 struct MyApp {
     content: String,
-    path: PathBuf,
+    pdf_path: PathBuf,
     writing_sitelen_pona: bool,
     selected: Dimensions,
+    path: PathBuf,
 }
 
 #[derive(PartialEq, Debug, Clone, Copy, Default)]
@@ -31,6 +33,16 @@ enum Dimensions {
     #[default]
     meso,
     suli,
+}
+
+impl fmt::Display for Dimensions {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        match self {
+            Dimensions::lili => write!(f, "lili"),
+            Dimensions::meso => write!(f, "meso"),
+            Dimensions::suli => write!(f, "suli"),
+        }
+    }
 }
 
 impl eframe::App for MyApp {
@@ -62,7 +74,7 @@ impl eframe::App for MyApp {
                 }
 
                 if ui.button("o awen e pali").clicked() {
-                    save_pdf(self.path.clone())
+                    save_pdf(self.path.clone(), 600.0, 900.0)
                 }
 
                 ui.heading("suli pi PDF:");
@@ -76,7 +88,9 @@ impl eframe::App for MyApp {
 
                 if ui.button("nasin lon pi ilo sona: ").clicked() {
                     if let Some(path) = rfd::FileDialog::new().pick_file() {
-                        self.path = path;
+                        self.path = path.clone();
+                        self.pdf_path = path;
+                        self.pdf_path.set_extension("pdf");
                     }
                 }
 
@@ -121,11 +135,9 @@ impl eframe::App for MyApp {
                             .expect("Failed to get executable parent directory")
                             .join("render");
 
-                        println!("Render path: {}", render_path.display());
-                        println!("Input path: {}", self.path.display());
-
                         let output = std::process::Command::new(&render_path)
-                            .arg(&self.path)
+                            .arg(&self.pdf_path)
+                            .arg(&self.selected.to_string())
                             .output();
 
                         match output {
@@ -166,7 +178,7 @@ impl eframe::App for MyApp {
                                 ));
                             }
                             Err(err) => {
-                                ui.label(format!("Failed to execute render: {:?}", self.path));
+                                ui.label(format!("Failed to execute render: {:?}", self.pdf_path));
                             }
                         }
                     },

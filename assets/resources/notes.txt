@@ -1,6 +1,6 @@
 https://jam.dev/utilities/svg-viewer
 
 Dimensions:
-For pocket notebooks, journals, and smaller books typically use: 5.8 × 8.3 in
-For paperback 6 × 9 in or 5.5 × 8.5 in
-For larger books: 8.5 × 11 in
+lili: 107.95mm by  174.498mm
+meso: 152.4mm by 228.6mm
+suli 215.9mm by 279.4mm

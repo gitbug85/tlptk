@@ -1,39 +1,8 @@
 use printpdf::*;
 use std::{fs, path::PathBuf, process::Command};
 
-enum TextElement {
-    Text(String),
-    Glyph { content: String },
-}
-
-// let elements = vec![
-//     TextElement::Text("Hello ".to_string()),
-//     TextElement::Svg {
-//         path: "pona.svg".to_string(),
-//         width: 12.0,
-//         height: 12.0,
-//     },
-//     TextElement::Text(" World".to_string()),
-// ];
-
-// let svg = Svg::parse(&svg, &mut warnings).unwrap();
-// let xobject_id = doc.add_xobject(&svg);
-//
-// let operations = vec![
-//     Op::UseXobject {
-//         id: xobject_id,
-//         transform: XObjectTransform {
-//             translate_x: Some(Mm(20.0).into()), <- This stuff is just x and y
-//             translate_y: Some(Mm(200.0).into()),
-//             scale_x: Some(1.0), <- This scales it
-//             scale_y: Some(1.0),
-//             ..Default::default()
-//         },
-//     },
-// ];
-
 // This function will save PDFs by interpreting lexemes and saving at the designated path
-pub fn save_pdf(path: PathBuf) {
+pub fn save_pdf(path: PathBuf, width: f32, height: f32) {
     let current_exe = std::env::current_exe().expect("Failed to find pdf executable.");
 
     let parent = current_exe
@@ -43,8 +12,10 @@ pub fn save_pdf(path: PathBuf) {
 
     let lex_path: PathBuf = parent.join("lex");
 
-    let output = Command::new(lex_path)
-        .arg(path.to_string_lossy().to_string())
+    let mut cmd = Command::new(lex_path);
+    cmd.arg(path.to_string_lossy().to_string());
+
+    let output = cmd
         .output()
         .expect("Could not get output from pdf executable.");
 
@@ -54,32 +25,55 @@ pub fn save_pdf(path: PathBuf) {
         serde_json::from_str(&stdout).expect("Could not make Vec<String> from stdout");
 
     println!("{:#?}", result);
-}
 
-fn main() {
-    let mut doc = PdfDocument::new("My first PDF");
-    let font_bytes = include_bytes!("../ArchitectsDaughter-Regular.ttf");
-    let mut font_warnings = Vec::new();
-    let parsed_font = ParsedFont::from_bytes(font_bytes, 0, &mut font_warnings).unwrap();
-    let font_id = doc.add_font(&parsed_font);
-    let page1_contents = vec![
-        Op::StartTextSection,
-        Op::SetTextCursor {
-            pos: Point::new(Mm(20.0), Mm(270.0)),
-        },
-        Op::SetFont {
-            font: PdfFontHandle::External(font_id),
-            size: Pt(24.0),
-        },
-        Op::ShowText {
-            items: vec![TextItem::Text("Hello, world!".to_string())],
-        },
-        Op::EndTextSection,
-    ];
-    let page1 = PdfPage::new(Mm(210.0), Mm(297.0), page1_contents);
+    let mut doc = PdfDocument::new("tlptk generated pdf");
+    let sitelen_wan_dir = parent
+        .parent()
+        .expect("Could not get parent of bin directory.")
+        .join("sitelen_wan");
+
+    let mut x_pos = 10.0;
+    let mut y_pos = 10.0;
+    let mut ops = vec![];
+
+    for lexeme in &result {
+        if lexeme == "\n" {
+            x_pos = 10.0;
+            y_pos += 5.0;
+            continue;
+        }
+
+        let svg_path = sitelen_wan_dir.join(format!("{}.svg", lexeme));
+        println!(
+            "{}",
+            svg_path
+                .clone()
+                .into_string()
+                .expect("Could not convert path to string.")
+        );
+        let svg_data = fs::read_to_string(svg_path).unwrap();
+        let svg = Svg::parse(&svg_data, &mut Vec::new()).unwrap();
+        let svg_id = doc.add_xobject(&svg);
+        let op = Op::UseXobject {
+            id: svg_id,
+            transform: XObjectTransform {
+                translate_x: Some(Pt(x_pos)),
+                translate_y: Some(Pt(y_pos)),
+                scale_x: Some(5.0),
+                scale_y: Some(5.0),
+                ..Default::default()
+            },
+        };
+        ops.push(op);
+        x_pos += 5.0;
+    }
+
+    let page = PdfPage::new(Mm(width), Mm(height), ops);
+
     let mut warnings = Vec::new();
-    let pdf_bytes: Vec<u8> = doc
-        .with_pages(vec![page1])
+    let new_path = path.with_extension("pdf");
+    let pdf_bytes = doc
+        .with_pages(vec![page])
         .save(&PdfSaveOptions::default(), &mut warnings);
-    fs::write("my_first_pdf.pdf", pdf_bytes).expect("Failed to write PDF file");
+    fs::write(new_path, pdf_bytes).unwrap();
 }
