@@ -62,7 +62,7 @@ impl eframe::App for MyApp {
                 }
 
                 if ui.button("o awen e pali").clicked() {
-                    save_pdf(self.path.clone(), &mut [])
+                    save_pdf(self.path.clone())
                 }
 
                 ui.heading("suli pi PDF:");

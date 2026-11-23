@@ -1,4 +1,6 @@
 import std/options
+import std/json
+import std/os
 
 # Separate content by the characters listed while discarding spaces
 # except when inside single quotes.
@@ -123,11 +125,24 @@ proc joinWithAmpersand(kulupuNimi: seq[string]): seq[string] =
 
   return kulupuNimiSin
 
-proc lex(content: string, characters: string): seq[string] =
-  var kulupuNimi = seperate(content, characters)
+proc lex(content: string) =
+  var kulupuNimi = seperate(content, "*& \n\t_[]'\"")
   kulupuNimi = postfixAsterisk(kulupuNimi)
   kulupuNimi = assignPokiNimiGlyphs(kulupuNimi)
   kulupuNimi = sitelenLasina(kulupuNimi)
   kulupuNimi = replaceQuotes(kulupuNimi)
   kulupuNimi = joinWithAmpersand(kulupuNimi)
-  return kulupuNimi
+  let jsonNode = %* kulupuNimi
+  let jsonString = $jsonNode
+  echo jsonString
+
+proc main() =
+  if paramCount() != 1:
+    quit("Usage: program <path>", 1)
+
+  let path = paramStr(1)
+  let content = readFile(path)
+
+  lex(content)
+
+main()

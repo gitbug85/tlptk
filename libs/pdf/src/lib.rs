@@ -1,5 +1,5 @@
 use printpdf::*;
-use std::{fs, path::PathBuf};
+use std::{fs, path::PathBuf, process::Command};
 
 enum TextElement {
     Text(String),
@@ -32,9 +32,28 @@ enum TextElement {
 //     },
 // ];
 
-pub fn save_pdf(path: PathBuf, lexemes: &mut [String]) {
-    println!("Printing from save_pdf!");
-    // This function will save PDFs by interpreting lexemes and saving at the designated path
+// This function will save PDFs by interpreting lexemes and saving at the designated path
+pub fn save_pdf(path: PathBuf) {
+    let current_exe = std::env::current_exe().expect("Failed to find pdf executable.");
+
+    let parent = current_exe
+        .parent()
+        .ok_or("Could not get executable parent directory")
+        .expect("Failed to find parent of pdf executable.");
+
+    let lex_path: PathBuf = parent.join("lex");
+
+    let output = Command::new(lex_path)
+        .arg(path.to_string_lossy().to_string())
+        .output()
+        .expect("Could not get output from pdf executable.");
+
+    let stdout = String::from_utf8(output.stdout).expect("Could not convert pdf output to String.");
+
+    let result: Vec<String> =
+        serde_json::from_str(&stdout).expect("Could not make Vec<String> from stdout");
+
+    println!("{:#?}", result);
 }
 
 fn main() {

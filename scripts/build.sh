@@ -35,7 +35,11 @@ compile_render() {
 }
 
 compile_lex() {
-    nim c -o:./bin/get_svg/lex ./libs/lex/main.nim
+    nim c -o:./bin/lex ./libs/lex/main.nim
+}
+
+compile_get_svg() {
+    nim c -o:./bin/get_svg ./libs/get_svg/main.nim
 }
 
 if [[ "$INDIVIDUAL" == true ]]; then
@@ -50,6 +54,7 @@ if [[ "$INDIVIDUAL" == true ]]; then
             ;;
     esac
 else
+    rm -rf ./bin/*
     compile_get_svg
     compile_ui
     compile_render
