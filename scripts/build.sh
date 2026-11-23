@@ -38,13 +38,8 @@ compile_lex() {
     nim c -o:./bin/lex ./libs/lex/main.nim
 }
 
-compile_get_svg() {
-    nim c -o:./bin/get_svg ./libs/get_svg/main.nim
-}
-
 if [[ "$INDIVIDUAL" == true ]]; then
     case "$BINARY" in
-        get_svg) compile_get_svg ;;
         ui)      compile_ui ;;
         render)  compile_render ;;
         lex)  compile_lex ;;
@@ -55,7 +50,6 @@ if [[ "$INDIVIDUAL" == true ]]; then
     esac
 else
     rm -rf ./bin/*
-    compile_get_svg
     compile_ui
     compile_render
     compile_lex

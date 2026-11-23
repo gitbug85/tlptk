@@ -2,6 +2,7 @@ use eframe::egui;
 use pdf::save_pdf;
 use rfd::FileDialog;
 use std::fmt;
+use std::fs;
 use std::path::PathBuf;
 
 fn main() -> eframe::Result<()> {
@@ -74,6 +75,8 @@ impl eframe::App for MyApp {
                 }
 
                 if ui.button("o awen e pali").clicked() {
+                    fs::write(self.path.clone(), self.content.clone())
+                        .expect("Could not write content.");
                     save_pdf(self.path.clone(), 600.0, 900.0)
                 }
 
@@ -91,6 +94,8 @@ impl eframe::App for MyApp {
                         self.path = path.clone();
                         self.pdf_path = path;
                         self.pdf_path.set_extension("pdf");
+                        self.content =
+                            fs::read_to_string(self.path.clone()).expect("Could not read file.");
                     }
                 }
 
