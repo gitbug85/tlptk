@@ -9,3 +9,4 @@ eframe = "0.31"
 egui_extras = { version = "0.31", features = ["svg"] }
 rfd = "0.18.0"
 image = { version = "0.25", default-features = false, features = ["jpeg"] }
+tokio = { version = "1", features = ["full"] }

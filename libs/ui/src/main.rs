@@ -1,4 +1,5 @@
 use eframe::egui;
+use image::error::ParameterErrorKind::DimensionMismatch;
 use pdf::save_pdf;
 use rfd::FileDialog;
 use std::fmt;
@@ -8,7 +9,8 @@ use std::path::PathBuf;
 use std::process::ExitStatus;
 use std::process::Output;
 
-fn main() -> eframe::Result<()> {
+#[tokio::main]
+async fn main() -> eframe::Result<()> {
     let options = eframe::NativeOptions::default();
 
     eframe::run_native(
@@ -74,33 +76,50 @@ impl eframe::App for MyApp {
             let mut should_update = false;
 
             ui.horizontal(|ui| {
-                let label = if !self.writing_sitelen_pona {
-                    "sitelen pona"
-                } else {
-                    "sitelen lasina"
-                };
-
-                let color = if self.writing_sitelen_pona {
-                    egui::Color32::default()
-                } else {
-                    egui::Color32::BLUE
-                };
-
-                if ui
-                    .selectable_label(
-                        self.writing_sitelen_pona,
-                        egui::RichText::new(label).background_color(color),
-                    )
-                    .clicked()
-                {
-                    self.writing_sitelen_pona = !self.writing_sitelen_pona;
-                }
+                //                 let label = if !self.writing_sitelen_pona {
+                //                     "sitelen pona"
+                //                 } else {
+                //                     "sitelen lasina"
+                //                 };
+                //
+                //                 let color = if self.writing_sitelen_pona {
+                //                     egui::Color32::default()
+                //                 } else {
+                //                     egui::Color32::BLUE
+                //                 };
+                //
+                //                 if ui
+                //                     .selectable_label(
+                //                         self.writing_sitelen_pona,
+                //                         egui::RichText::new(label).background_color(color),
+                //                     )
+                //                     .clicked()
+                //                 {
+                //                     self.writing_sitelen_pona = !self.writing_sitelen_pona;
+                //                 }
 
                 if ui.button("o awen e pali").clicked() {
                     fs::write(self.path.clone(), self.content.clone())
                         .expect("Could not write content.");
                     should_update = true;
-                    save_pdf(self.path.clone(), 600.0, 900.0)
+
+                    let path = self.path.clone();
+                    let size = self.selected;
+                    tokio::spawn(async move {
+                        let width;
+                        let height;
+                        if size == Dimensions::lili {
+                            width = 107.95;
+                            height = 174.498;
+                        } else if size == Dimensions::meso {
+                            width = 152.4;
+                            height = 228.6;
+                        } else {
+                            width = 215.9;
+                            height = 279.4;
+                        }
+                        save_pdf(path, width * 6.0, height * 6.0).await;
+                    });
                 }
 
                 ui.heading("suli pi PDF:");
@@ -137,12 +156,16 @@ impl eframe::App for MyApp {
                         ui.label("sitelen pi pana open:");
 
                         egui::ScrollArea::vertical().show(ui, |ui| {
-                            ui.add(
+                            let response = ui.add(
                                 egui::TextEdit::multiline(&mut self.content)
                                     .desired_width(column_width)
                                     .desired_rows(10)
                                     .min_size(egui::vec2(column_width, 1000.0)),
-                            )
+                            );
+
+                            if response.changed() {
+                                should_update = true;
+                            }
                         });
                     },
                 );

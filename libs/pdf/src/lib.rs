@@ -2,7 +2,7 @@ use printpdf::*;
 use std::{fs, path::PathBuf, process::Command};
 
 // This function will save PDFs by interpreting lexemes and saving at the designated path
-pub fn save_pdf(path: PathBuf, width: f32, height: f32) {
+pub async fn save_pdf(path: PathBuf, width: f32, height: f32) {
     let current_exe = std::env::current_exe().expect("Failed to find pdf executable.");
 
     let parent = current_exe
@@ -30,13 +30,13 @@ pub fn save_pdf(path: PathBuf, width: f32, height: f32) {
         .expect("Could not get parent of bin directory.")
         .join("sitelen_wan");
 
-    let mut x_pos = 30.0;
-    let mut y_pos = 2409.45;
+    let mut x_pos = 0.0;
+    let mut y_pos = (height * 2.83464567) - 100.0;
     let mut ops = vec![];
 
     for lexeme in &result {
         if lexeme == "\n" {
-            x_pos = 30.0;
+            x_pos = 0.0;
             y_pos -= 100.0;
             continue;
         }

@@ -64,6 +64,17 @@ int main(int argc, char* argv[])
     int WIDTH = 600;
     int HEIGHT = 900;
 
+    if (pdf_size_type == "lili") {
+        WIDTH = 425;
+        HEIGHT = 687;
+    } else if (pdf_size_type == "meso") {
+        WIDTH = 600;
+        HEIGHT = 900;
+    } else {
+        WIDTH = 850;
+        HEIGHT = 1100;
+    }
+
     // Load the PDF.
     std::unique_ptr<poppler::document> doc(
         poppler::document::load_from_file(pdf_path)
