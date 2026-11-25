@@ -29,6 +29,7 @@ struct MyApp {
     selected: Dimensions,
     path: PathBuf,
     render_output: Output,
+    render_texture: Option<egui::TextureHandle>,
 }
 
 impl Default for MyApp {
@@ -44,6 +45,7 @@ impl Default for MyApp {
                 stdout: Vec::new(),
                 stderr: Vec::new(),
             },
+            render_texture: None,
         }
     }
 }
@@ -135,14 +137,12 @@ impl eframe::App for MyApp {
                         ui.label("sitelen pi pana open:");
 
                         egui::ScrollArea::vertical().show(ui, |ui| {
-                            should_update |= ui
-                                .add(
-                                    egui::TextEdit::multiline(&mut self.content)
-                                        .desired_width(column_width)
-                                        .desired_rows(10)
-                                        .min_size(egui::vec2(column_width, 1000.0)),
-                                )
-                                .changed();
+                            ui.add(
+                                egui::TextEdit::multiline(&mut self.content)
+                                    .desired_width(column_width)
+                                    .desired_rows(10)
+                                    .min_size(egui::vec2(column_width, 1000.0)),
+                            )
                         });
                     },
                 );
@@ -153,8 +153,6 @@ impl eframe::App for MyApp {
                     egui::vec2(column_width, 1000.0),
                     egui::Layout::top_down(egui::Align::Min),
                     |ui| {
-                        ui.label("Preview:");
-
                         if should_update {
                             let render_path = std::env::current_exe()
                                 .expect("Failed to get current executable path")
@@ -167,31 +165,33 @@ impl eframe::App for MyApp {
                                 .arg(&self.selected.to_string())
                                 .output()
                                 .expect("Could not render output.");
+
+                            match image::load_from_memory(&self.render_output.stdout) {
+                                Ok(decoded) => {
+                                    let size =
+                                        [decoded.width() as usize, decoded.height() as usize];
+
+                                    let rgba = decoded.to_rgba8();
+
+                                    let image = egui::ColorImage::from_rgba_unmultiplied(
+                                        size,
+                                        rgba.as_raw(),
+                                    );
+
+                                    self.render_texture = Some(ui.ctx().load_texture(
+                                        "render_preview",
+                                        image,
+                                        egui::TextureOptions::LINEAR,
+                                    ));
+                                }
+                                Err(err) => {
+                                    eprintln!("Failed to decode JPEG: {err}");
+                                }
+                            }
                         }
 
-                        match image::load_from_memory(&self.render_output.stdout) {
-                            Ok(decoded) => {
-                                let size = [decoded.width() as usize, decoded.height() as usize];
-
-                                let rgba = decoded.to_rgba8();
-                                let pixels = rgba.as_flat_samples();
-
-                                let image = egui::ColorImage::from_rgba_unmultiplied(
-                                    size,
-                                    pixels.as_slice(),
-                                );
-
-                                let texture = ui.ctx().load_texture(
-                                    "render_preview",
-                                    image,
-                                    egui::TextureOptions::LINEAR,
-                                );
-
-                                ui.add(egui::Image::new(&texture).max_size(ui.available_size()));
-                            }
-                            Err(err) => {
-                                ui.label(format!("Failed to decode JPEG: {err}"));
-                            }
+                        if let Some(texture) = &self.render_texture {
+                            ui.add(egui::Image::new(texture).max_size(ui.available_size()));
                         }
                     },
                 );

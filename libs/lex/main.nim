@@ -125,13 +125,23 @@ proc joinWithAmpersand(kulupuNimi: seq[string]): seq[string] =
 
   return kulupuNimiSin
 
+proc removeEmpty(kulupuNimi: seq[string]): seq[string] =
+  var kulupuNimiSin: seq[string] = @[]
+
+  for nimi in kulupuNimi:
+    if nimi != "":
+      kulupuNimiSin.add(nimi)
+
+  return kulupuNimiSin
+
 proc lex(content: string) =
-  var kulupuNimi = seperate(content, "*& \n\t_[]'\"")
+  var kulupuNimi = seperate(content, "*& \n\t_[]'\".")
   kulupuNimi = postfixAsterisk(kulupuNimi)
   kulupuNimi = assignPokiNimiGlyphs(kulupuNimi)
   kulupuNimi = sitelenLasina(kulupuNimi)
   kulupuNimi = replaceQuotes(kulupuNimi)
   kulupuNimi = joinWithAmpersand(kulupuNimi)
+  kulupuNimi = removeEmpty(kulupuNimi)
   let jsonNode = %* kulupuNimi
   let jsonString = $jsonNode
   echo jsonString

@@ -24,33 +24,24 @@ pub fn save_pdf(path: PathBuf, width: f32, height: f32) {
     let result: Vec<String> =
         serde_json::from_str(&stdout).expect("Could not make Vec<String> from stdout");
 
-    println!("{:#?}", result);
-
     let mut doc = PdfDocument::new("tlptk generated pdf");
     let sitelen_wan_dir = parent
         .parent()
         .expect("Could not get parent of bin directory.")
         .join("sitelen_wan");
 
-    let mut x_pos = 60.0;
+    let mut x_pos = 30.0;
     let mut y_pos = 2409.45;
     let mut ops = vec![];
 
     for lexeme in &result {
         if lexeme == "\n" {
-            x_pos = 60.0;
+            x_pos = 30.0;
             y_pos -= 100.0;
             continue;
         }
 
         let svg_path = sitelen_wan_dir.join(format!("{}.svg", lexeme));
-        println!(
-            "{}",
-            svg_path
-                .clone()
-                .into_string()
-                .expect("Could not convert path to string.")
-        );
         let svg_data = fs::read_to_string(svg_path).unwrap();
         let svg = Svg::parse(&svg_data, &mut Vec::new()).unwrap();
         let svg_id = doc.add_xobject(&svg);
