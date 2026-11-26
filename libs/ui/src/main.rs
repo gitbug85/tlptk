@@ -8,6 +8,10 @@ use std::os::unix::process::ExitStatusExt;
 use std::path::PathBuf;
 use std::process::ExitStatus;
 use std::process::Output;
+use std::sync::{
+    Arc,
+    atomic::{AtomicBool, Ordering},
+};
 
 #[tokio::main]
 async fn main() -> eframe::Result<()> {
@@ -32,6 +36,7 @@ struct MyApp {
     path: PathBuf,
     render_output: Output,
     render_texture: Option<egui::TextureHandle>,
+    should_update: Arc<AtomicBool>,
 }
 
 impl Default for MyApp {
@@ -48,6 +53,7 @@ impl Default for MyApp {
                 stderr: Vec::new(),
             },
             render_texture: None,
+            should_update: Arc::new(AtomicBool::new(false)),
         }
     }
 }
@@ -73,8 +79,6 @@ impl fmt::Display for Dimensions {
 impl eframe::App for MyApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            let mut should_update = false;
-
             ui.horizontal(|ui| {
                 //                 let label = if !self.writing_sitelen_pona {
                 //                     "sitelen pona"
@@ -101,10 +105,10 @@ impl eframe::App for MyApp {
                 if ui.button("o awen e pali").clicked() {
                     fs::write(self.path.clone(), self.content.clone())
                         .expect("Could not write content.");
-                    should_update = true;
 
                     let path = self.path.clone();
                     let size = self.selected;
+                    let should_update_clone = Arc::clone(&self.should_update);
                     tokio::spawn(async move {
                         let width;
                         let height;
@@ -119,6 +123,8 @@ impl eframe::App for MyApp {
                             height = 279.4;
                         }
                         save_pdf(path, width * 6.0, height * 6.0).await;
+
+                        should_update_clone.store(true, Ordering::Release);
                     });
                 }
 
@@ -156,16 +162,12 @@ impl eframe::App for MyApp {
                         ui.label("sitelen pi pana open:");
 
                         egui::ScrollArea::vertical().show(ui, |ui| {
-                            let response = ui.add(
+                            ui.add(
                                 egui::TextEdit::multiline(&mut self.content)
                                     .desired_width(column_width)
                                     .desired_rows(10)
                                     .min_size(egui::vec2(column_width, 1000.0)),
                             );
-
-                            if response.changed() {
-                                should_update = true;
-                            }
                         });
                     },
                 );
@@ -176,7 +178,7 @@ impl eframe::App for MyApp {
                     egui::vec2(column_width, 1000.0),
                     egui::Layout::top_down(egui::Align::Min),
                     |ui| {
-                        if should_update {
+                        if self.should_update.swap(false, Ordering::AcqRel) {
                             let render_path = std::env::current_exe()
                                 .expect("Failed to get current executable path")
                                 .parent()
@@ -202,7 +204,7 @@ impl eframe::App for MyApp {
                                     );
 
                                     self.render_texture = Some(ui.ctx().load_texture(
-                                        "render_preview",
+                                        "render",
                                         image,
                                         egui::TextureOptions::LINEAR,
                                     ));
@@ -211,6 +213,7 @@ impl eframe::App for MyApp {
                                     eprintln!("Failed to decode JPEG: {err}");
                                 }
                             }
+                            self.should_update.store(false, Ordering::Release);
                         }
 
                         if let Some(texture) = &self.render_texture {
