@@ -58,12 +58,13 @@ jobs:
 
       - name: Configure Flatpak
         run: |
-          sudo flatpak remote-add --system --if-not-exists flathub \
+          flatpak remote-add --user --if-not-exists flathub \
             https://dl.flathub.org/repo/flathub.flatpakrepo
 
       - name: Build Flatpak
         run: |
           flatpak-builder \
+            --user \
             --force-clean \
             --install-deps-from=flathub \
             --repo=release/repo \
