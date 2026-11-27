@@ -58,13 +58,14 @@ jobs:
 
       - name: Configure Flatpak
         run: |
-          flatpak remote-add --if-not-exists flathub \
+          sudo flatpak remote-add --system --if-not-exists flathub \
             https://dl.flathub.org/repo/flathub.flatpakrepo
 
       - name: Build Flatpak
         run: |
           flatpak-builder \
             --force-clean \
+            --install-deps-from=flathub \
             --repo=release/repo \
             release/build \
             flatpak/io.github.gitbug85.tlptk.yml
