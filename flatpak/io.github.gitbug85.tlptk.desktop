@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=TLPTK
+Comment=toki lukin pi telo kule
+Exec=ui
+Icon=io.github.username.tlptk
+Terminal=true
+Type=Application
+Categories=Utility;
