@@ -16,6 +16,19 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Install Nim
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y nim
+          nim --version
+
+      - name: Install dependencies
+        run: |
+          sudo apt install build-essential
+          sudo apt install libpoppler-cpp-dev
+          sudo apt install poppler-utils
+          sudo apt install libjpeg-dev
+
       - name: Build Binaries
         run: |
           chmod +x ./scripts/build.sh
@@ -48,39 +61,18 @@ jobs:
           flatpak remote-add --if-not-exists flathub \
             https://dl.flathub.org/repo/flathub.flatpakrepo
 
-      - name: Create Flatpak Manifest
-        run: |
-          mkdir -p flatpak
-
-          cat > flatpak/io.github.username.tlptk.yml <<'EOF'
-          app-id: io.github.username.tlptk
-          runtime: org.freedesktop.Platform
-          runtime-version: '24.08'
-          sdk: org.freedesktop.Sdk
-          command: tlptk
-
-          modules:
-            - name: tlptk
-              buildsystem: simple
-              build-commands:
-                - install -Dm755 bin/tlptk /app/bin/tlptk
-              sources:
-                - type: dir
-                  path: ../bin
-          EOF
-
       - name: Build Flatpak
         run: |
           flatpak-builder \
             --force-clean \
             --repo=release/repo \
             release/build \
-            flatpak/io.github.username.tlptk.yml
+            flatpak/io.github.gitbug85.tlptk.yml
 
           flatpak build-bundle \
             release/repo \
             release/tlptk.flatpak \
-            io.github.username.tlptk
+            io.github.gitbug85.tlptk
 
       - name: Upload Archives to Release
         uses: softprops/action-gh-release@v2
